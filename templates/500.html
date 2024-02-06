@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}500 Eror{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="grid">
+        <div class="error">
+              <span>500
+                error
+              </span>
+          <p>Ошибка на стороне сервера</p>
+          <p>Мы уже работаем над проблемой, можете перейти на главную страницу</p>
+          <form action="{{ url_for('index') }}" target="_blank">
+            <button>Главная</button>
+          </form>
+        </div>  
+    </div>
+  </div>
+{% endblock %}

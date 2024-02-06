@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Авторизвция{% endblock %}
+
+{% block content %}
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active"> Войти </h2>
+      <h2 class="inactive underlineHover"><a href="{{ url_for('registration') }}">Регистрация</a></h2>
+    
+      <!-- Icon -->
+      <div id="icon">
+        <img src="/static/img/icon_authorization_page.png"  id="icon" alt="User Icon" />
+      </div>
+  
+      <!-- Login Form -->
+      <form>
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Логин">
+        <input type="text" id="password" class="fadeIn third" name="login" placeholder="Пароль">
+        <input type="submit" class="fadeIn fourth" value="Отправить">
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="{{ url_for('password_recovery') }}">Забыли пароль?</a>
+      </div>
+  
+    </div>
+  </div>
+{% endblock %}

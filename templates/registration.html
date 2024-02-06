@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}registration{% endblock %}
+
+{% block content %}
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active">Регистрация </h2>
+
+      <!-- Icon -->
+      <div id="icon">
+        <img src="/static/img/registrations.png"  id="icon" alt="Email Icon" />
+      </div>
+  
+      <!-- Login Form -->
+      <form>
+        <input type="text" id="email" class="fadeIn second" name="email" placeholder="Введите ваш email">
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Введите логин или номер телефона">
+        <input type="text" id="password" class="fadeIn third" name="login" placeholder="Введите пароль">
+        <input type="submit" class="fadeIn fourth" value="Отправить">
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        
+      </div>
+  
+    </div>
+  </div>
+{% endblock %}
