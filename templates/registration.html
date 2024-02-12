@@ -12,15 +12,16 @@
       <div id="icon">
         <img src="/static/img/registrations.png"  id="icon" alt="Email Icon" />
       </div>
-  
       <!-- Login Form -->
-      <form>
+      <form action="/registration/" method="post">
         <input type="text" id="email" class="fadeIn second" name="email" placeholder="Введите ваш email">
-        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Введите логин или номер телефона">
-        <input type="text" id="password" class="fadeIn third" name="login" placeholder="Введите пароль">
+        <input type="text" id="login" class="fadeIn second" name="username" placeholder="Введите логин или номер телефона">
+        <input type="text" id="password" class="fadeIn third" name="password" placeholder="Введите пароль">
         <input type="submit" class="fadeIn fourth" value="Отправить">
       </form>
-  
+      {% for cat, msg in get_flashed_messages(True) %}
+      <div class="flash {{ cat }}">{{ msg }}</div>
+      {% endfor %}
       <!-- Remind Passowrd -->
       <div id="formFooter">
         

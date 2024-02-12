@@ -15,12 +15,15 @@
       </div>
   
       <!-- Login Form -->
-      <form>
-        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Логин">
-        <input type="text" id="password" class="fadeIn third" name="login" placeholder="Пароль">
-        <input type="submit" class="fadeIn fourth" value="Отправить">
+      <form action="{{ url_for('login') }}" method="post">
+        <input type="text" id="login" class="fadeIn second" name="username" placeholder="Логин">
+        <input type="text" id="password" class="fadeIn third" name="password" placeholder="Пароль">
+        <input type="submit" class="fadeIn fourth" value="Войти">
       </form>
-  
+      <p><input type="checkbox" id="remainme">  Запомнить меня</p>
+      {% for cat, msg in get_flashed_messages(True) %}
+      <div class="flash {{ cat }}">{{ msg }}</div>
+      {% endfor %}
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" href="{{ url_for('password_recovery') }}">Забыли пароль?</a>
@@ -29,3 +32,6 @@
     </div>
   </div>
 {% endblock %}
+
+
+
