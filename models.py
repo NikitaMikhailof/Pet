@@ -1,7 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask import Flask
+
+
+
+app = Flask(__name__)
 
 db = SQLAlchemy()
+
 
 class User_profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,5 +40,20 @@ class User_basket(db.Model):
     def __repr__(self):
         return f'User_basket({self.username}, {self.product_name}, {self.price}, {self.time_buy}'
 
+
+class LoginUser():
+    def get_email(email):
+        user = User_profile.query.filter_by(email=email).first()
+        return f'{user.email}'
+
+    def is_user(login):
+        user = User_profile.query.filter_by(username=login).first()
+        if user:
+            return True
+        return False  
+    
+    def get_psw(pasw):
+        user = User_profile.query.filter_by(password=pasw).first()
+        return f'{user.password}'
 
 

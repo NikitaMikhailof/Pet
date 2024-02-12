@@ -1,9 +1,9 @@
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort
-from models import db, User_profile, Products, User_basket
+from models import db, User_profile, Products, User_basket, LoginUser
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm
-from flask_login import LoginManager
+
 
 
 
@@ -12,30 +12,19 @@ app.config['SECRET_KEY'] = '4470a67a983583b8d6287e88b4f25ca5bf212514b0add95fde48
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 db.init_app(app)
 
-login_manager = LoginManager(app)
 
 @app.route('/')
 def index():
     return render_template('index.html') 
 
 
-@app.route('/login/', methods=['GET', 'POST'])
-def login():
-    pass
-    form = LoginForm()
-    if request.method == 'POST' and form.validate():
-    # Обработка данных из формы
-        pass
-    return render_template('login.html', form=form)
+# @app.route('/user_profile/<username>')
+# def user_profile(username):
+#     if 'userLogged' not in session or session['userLogged'] != username:
+#         abort(401) 
+#     return render_template('user_profile.html')    
 
-
-@app.route('/user_profile/<username>')
-def user_profile(username):
-    if 'userLogged' not in session or session['userLogged'] != username:
-        abort(401)
-    return f'Профиль пользователя {username}'
-
-
+ 
 @app.route('/registration/', methods=['POST', 'GET'])
 def registration():    
     if request.method == 'POST':
@@ -63,6 +52,32 @@ def registration():
 
 
 
+@app.route('/login/', methods=['GET', 'POST'])
+def login():
+    if 'userLogged' in session:
+        return redirect(url_for('user_profile', username=session['userLogged']))
+    else:
+        if request.method == 'POST':
+            login = request.form['login']
+            password = request.form['password']
+            u = User_profile()
+            user = u.query.filter_by(username=login).first()
+            try:
+                if login == user.username and check_password_hash(user.password, password):
+                    session['userLogged'] = login
+                    return redirect(url_for('user_profile', username=session['userLogged']))
+            except:
+                flash('Неверный логин / пароль', category='error')
+    return render_template('login.html')    
+
+
+@app.route('/user_profile/<username>')
+def user_profile(username):
+    if 'userLogged' not in session or session['userLogged'] != username:
+        abort(401)
+    return render_template('user_profile.html', title=username)
+    
+    
 @app.route('/password_recovery/')
 def password_recovery():
     if request.method == 'POST':
@@ -73,6 +88,11 @@ def password_recovery():
 @app.route('/send_password_email/')
 def send_password_email():
     return render_template('send_password_email.html')
+
+
+@app.errorhandler(401)
+def pageNotFount(error):
+    return render_template('401.html')
 
 
 @app.errorhandler(404)
@@ -107,7 +127,15 @@ def edit_user():
     user.email = 'new_email@example.com'
     db.session.commit()
     print('Edit John mail in DB!')
-          
+
+@app.cli.command("del")
+def del_user():
+    user = User_profile.query.filter_by(username='12345@12345').first()
+    db.session.delete(user)
+    db.session.commit()
+    print('Delete John from DB!')
+ 
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

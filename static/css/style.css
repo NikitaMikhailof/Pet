@@ -376,6 +376,6 @@ input[type=text]:placeholder {
   background:rgb(88, 240, 174);
 }
 .flash.error {
-  border: 1px solid rgb(234, 96, 152); 
-  background:rgb(234, 96, 152); 
+  border: 1px solid rgb(255, 161, 199);
+  background:rgb(255, 161, 199); 
 }
