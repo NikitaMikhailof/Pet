@@ -17,58 +17,53 @@ db.init_app(app)
 def index():
     return render_template('index.html') 
 
-
-# @app.route('/user_profile/<username>')
-# def user_profile(username):
-#     if 'userLogged' not in session or session['userLogged'] != username:
-#         abort(401) 
-#     return render_template('user_profile.html')    
-
  
 @app.route('/registration/', methods=['POST', 'GET'])
-def registration():    
-    if request.method == 'POST':
-        if '@' in request.form['email'] and len(request.form['username']) > 4 \
-            and len(request.form['password']) > 6:
+def registration():  
+    form = RegistrationForm() 
+    if request.method == 'POST': 
+        if form.validate_on_submit():
+            email = form.email.data
+            user_name = form.username.data
+            hash = generate_password_hash(form.password.data)
+            u = User_profile()
+            user = u.query.filter_by(username=user_name).first()
             try:
-                hash = generate_password_hash(request.form['password'])
-                mail = request.form['email']
-                user_name = request.form['username']
-                new_user = User_profile(email=mail, username=user_name, password=hash)
-                db.session.add(new_user)
-                db.session.commit()
+                if user: 
+                    flash('Пользователь с таким логином уже существует, придумайте новый', category='error')  
+                else:
+                    new_user = User_profile(email=email, username=user_name, password=hash)
+                    db.session.add(new_user)
+                    db.session.commit()
 
-                user_basket = User_basket(user_id=new_user.id)
-                db.session.add(user_basket)
-                db.session.commit()
-                flash('Вы успешно зарегистрированы', category='success')
-                return redirect(url_for('login'))
+                    user_basket = User_basket(user_id=new_user.id)
+                    db.session.add(user_basket)
+                    db.session.commit()  
+                    flash('Регистрация прошла успешно', category='success')
+                    return redirect(url_for('login'))
             except:
-                db.session.rollback()
-                print('Ошибка добавления в базу данных')
-        else:
-            flash('неверно заполнены поля', category='error')    
-    return  render_template('registration.html')             
-
-
+                    db.session.rollback()
+        else:            
+            flash('Данные введены не корректно', category='error')
+    return  render_template('registration.html', form=form)    
+                   
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if 'userLogged' in session:
         return redirect(url_for('user_profile', username=session['userLogged']))
-    else:
-        if request.method == 'POST':
-            login = request.form['login']
-            password = request.form['password']
-            u = User_profile()
-            user = u.query.filter_by(username=login).first()
-            try:
-                if login == user.username and check_password_hash(user.password, password):
-                    session['userLogged'] = login
-                    return redirect(url_for('user_profile', username=session['userLogged']))
-            except:
-                flash('Неверный логин / пароль', category='error')
-    return render_template('login.html')    
+     
+    form = LoginForm()
+    if form.validate_on_submit():
+        u = User_profile()
+        user = u.query.filter_by(username=form.username.data).first()
+        if user and check_password_hash(user.password, form.password.data):
+            session['userLogged'] = form.username.data
+            return redirect(url_for('user_profile', username=session['userLogged']))
+        else:
+            flash('Неверный логин / пароль', category='error')
+
+    return render_template('login.html', form=form)    
 
 
 @app.route('/user_profile/<username>')

@@ -1,32 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}registration{% endblock %}
+{% block title %}Регистрация{% endblock %}
 
 {% block content %}
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-      <!-- Tabs Titles -->
-      <h2 class="active">Регистрация </h2>
-
-      <!-- Icon -->
-      <div id="icon">
-        <img src="/static/img/registrations.png"  id="icon" alt="Email Icon" />
-      </div>
-      <!-- Login Form -->
-      <form action="/registration/" method="post">
-        <input type="text" id="email" class="fadeIn second" name="email" placeholder="Введите ваш email">
-        <input type="text" id="login" class="fadeIn second" name="username" placeholder="Введите логин или номер телефона">
-        <input type="text" id="password" class="fadeIn third" name="password" placeholder="Введите пароль">
-        <input type="submit" class="fadeIn fourth" value="Отправить">
-      </form>
-      {% for cat, msg in get_flashed_messages(True) %}
-      <div class="flash {{ cat }}">{{ msg }}</div>
-      {% endfor %}
-      <!-- Remind Passowrd -->
-      <div id="formFooter">
-        
-      </div>
-  
-    </div>
-  </div>
+<form action="" method="post">
+{{ form.hidden_tag() }}
+<p>{{ form.email.label() }} {{ form.email() }}
+<p>{{ form.username.label() }} {{ form.username() }}
+<p>{{ form.password.label() }} {{ form.password() }}
+<p>{{ form.confirm_password.label() }} {{ form.confirm_password() }}
+<p>{{ form.submit() }}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{ cat }}">{{ msg }}</div>
+</form>
+{% endfor %}
 {% endblock %}
