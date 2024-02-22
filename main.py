@@ -2,9 +2,8 @@ from flask import Flask, render_template, url_for, request, flash, session, redi
 from models import db, User_profile, Products, User_basket, LoginUser
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegistrationForm
-
-
+from forms import LoginForm, RegistrationForm, PasswordRecoveryForm
+from passw_recovery import send_email
 
 
 app = Flask(__name__)
@@ -20,12 +19,14 @@ def index():
  
 @app.route('/registration/', methods=['POST', 'GET'])
 def registration():  
-    form = RegistrationForm() 
+    form_registration = RegistrationForm() 
     if request.method == 'POST': 
-        if form.validate_on_submit():
-            email = form.email.data
-            user_name = form.username.data
-            hash = generate_password_hash(form.password.data)
+        if form_registration.validate_on_submit():
+            email = form_registration.email.data
+            user_name = form_registration.username.data
+            hash = generate_password_hash(form_registration.password.data)
+            from models import connection_database
+            connection_database()
             u = User_profile()
             user = u.query.filter_by(username=user_name).first()
             try:
@@ -45,7 +46,7 @@ def registration():
                     db.session.rollback()
         else:            
             flash('Данные введены не корректно', category='error')
-    return  render_template('registration.html', form=form)    
+    return  render_template('registration.html', form=form_registration)    
                    
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -53,17 +54,19 @@ def login():
     if 'userLogged' in session:
         return redirect(url_for('user_profile', username=session['userLogged']))
      
-    form = LoginForm()
-    if form.validate_on_submit():
+    form_login = LoginForm()
+    if form_login.validate_on_submit():
+        from models import connection_database
+        connection_database()
         u = User_profile()
-        user = u.query.filter_by(username=form.username.data).first()
-        if user and check_password_hash(user.password, form.password.data):
-            session['userLogged'] = form.username.data
+        user = u.query.filter_by(username=form_login.username.data).first()
+        if user and check_password_hash(user.password, form_login.password.data):
+            session['userLogged'] = form_login.username.data
             return redirect(url_for('user_profile', username=session['userLogged']))
         else:
             flash('Неверный логин / пароль', category='error')
 
-    return render_template('login.html', form=form)    
+    return render_template('login.html', form=form_login)    
 
 
 @app.route('/user_profile/<username>')
@@ -73,16 +76,37 @@ def user_profile(username):
     return render_template('user_profile.html', title=username)
     
     
-@app.route('/password_recovery/')
+@app.route('/password_recovery/', methods=['POST', 'GET'])
 def password_recovery():
+    form_pass_recovery = PasswordRecoveryForm()
     if request.method == 'POST':
-        print(request.form)
-    return render_template('password_recovery.html')
+        if form_pass_recovery.validate_on_submit():
+            from models import connection_database
+            connection_database()
+            user_email = form_pass_recovery.email.data
+            u = User_profile()
+            user = u.query.filter_by(email=user_email).first()
+            if user:
+                from passw_recovery import send_email
+                temporary_password = send_email(user_email) 
+                user.password = generate_password_hash(temporary_password)
+                db.session.commit()
+                
+                return redirect(url_for('send_password_email')) 
+            else:
+                flash('Неверный email', category='error') 
+        else:       
+            flash('Введите email', category='error')    
+    return render_template('password_recovery.html', form=form_pass_recovery)
 
 
 @app.route('/send_password_email/')
 def send_password_email():
-    return render_template('send_password_email.html')
+    from time import sleep
+    render_template('send_password_email.html')
+    sleep(1)
+    return redirect(url_for('login'))
+
 
 
 @app.errorhandler(401)

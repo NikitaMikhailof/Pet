@@ -1,12 +1,17 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask import Flask
-
+from sqlalchemy import create_engine, Connection, MetaData
 
 
 app = Flask(__name__)
-
 db = SQLAlchemy()
+metadata = MetaData()
+
+
+def connection_database():
+    engine = create_engine(url='sqlite:///mydatabase.db') 
+    return engine.connect()
 
 
 class User_profile(db.Model):

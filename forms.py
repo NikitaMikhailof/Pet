@@ -23,4 +23,7 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Проверка пароля', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Зарегистрироваться')
 
+class PasswordRecoveryForm(FlaskForm):
+    email = StringField('Email', validators=[Email()])
+    submit = SubmitField('Отправить')
   

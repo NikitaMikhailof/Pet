@@ -3,15 +3,27 @@
 {% block title %}Регистрация{% endblock %}
 
 {% block content %}
-<form action="" method="post">
-{{ form.hidden_tag() }}
-<p>{{ form.email.label() }} {{ form.email() }}
-<p>{{ form.username.label() }} {{ form.username() }}
-<p>{{ form.password.label() }} {{ form.password() }}
-<p>{{ form.confirm_password.label() }} {{ form.confirm_password() }}
-<p>{{ form.submit() }}
-{% for cat, msg in get_flashed_messages(True) %}
-<div class="flash {{ cat }}">{{ msg }}</div>
-</form>
-{% endfor %}
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active">Регистрация </h2>
+
+      <!-- Icon -->
+      <div id="icon">
+        <img src="/static/img/registrations.png"  id="icon" alt="Email Icon" />
+      </div>
+      <!-- Login Form -->
+      <form action="/registration/" method="post">
+        {{ form.csrf_token }}
+        <p id="email" class="fadeIn second">{{ form.email.label }} {{ form.email}}</p>
+        <p id="username" class="fadeIn second">{{ form.username.label }} {{ form.username }}</p>
+        <p id="password" class="fadeIn third">{{ form.password.label}} {{ form.password }}</p>
+        <p id="confirm_password class="fadeIn third">{{ form.confirm_password.label }} {{ form.confirm_password }}</p>
+        <p class="fadeIn fourth">{{ form.submit }}</p>
+        {% for cat, msg in get_flashed_messages(True) %}
+        <div class="flash {{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      </form>
+    </div>
+</div>
 {% endblock %}

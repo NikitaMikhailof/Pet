@@ -3,18 +3,37 @@
 {% block title %}Авторизация{% endblock %}
 
 {% block content %}
-<form action="" method="post">
-{{ form.hidden_tag() }}
-<p>{{ form.username.label() }} {{ form.username() }}
-<p>{{ form.password.label() }} {{ form.password() }}
-<p>{{ form.remember.label() }} {{ form.remember() }}
-<p>{{ form.submit() }}
-{% for msg in get_flashed_messages() %}
-<div class="flash">{{ msg }}</div>
-<p><a href="{{ url_for('registration') }}">Регистрация</p>
-</form>
-{% endfor %}
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active"> Войти </h2>
+      <h2 class="inactive underlineHover"><a href="{{ url_for('registration') }}">Регистрация</a></h2>
+    
+      <!-- Icon -->
+      <div id="icon">
+        <img src="/static/img/icon_authorization_page.png"  id="icon" alt="User Icon" />
+      </div>
+  
+      <!-- Login Form -->
+      <form action="/login/" method="post">
+        {{ form.csrf_token }}
+        <p id="username" class="fadeIn second">{{ form.username.label }} {{ form.username}}</p>
+        <p id="password" class="fadeIn third">{{ form.password.label }} {{ form.password }}</p>
+        <p class="fadeIn third">{{ form.remember.label }} {{ form.remember }}</p>
+        <p class="fadeIn fourth">{{ form.submit }}</p>
+      </form>
+      {% for cat, msg in get_flashed_messages(True) %}
+      <div class="flash {{ cat }}">{{ msg }}</div>
+      {% endfor %}
+      
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="{{ url_for('password_recovery') }}">Забыли пароль?</a>
+      </div>
+    </div>
+</div>  
 {% endblock %}
 
 
-
+     
+    
