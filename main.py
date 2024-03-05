@@ -25,8 +25,6 @@ def registration():
             email = form_registration.email.data
             user_name = form_registration.username.data
             hash = generate_password_hash(form_registration.password.data)
-            from models import connection_database
-            connection_database()
             u = User_profile()
             user = u.query.filter_by(username=user_name).first()
             try:
@@ -56,8 +54,6 @@ def login():
      
     form_login = LoginForm()
     if form_login.validate_on_submit():
-        from models import connection_database
-        connection_database()
         u = User_profile()
         user = u.query.filter_by(username=form_login.username.data).first()
         if user and check_password_hash(user.password, form_login.password.data):
@@ -71,18 +67,16 @@ def login():
 
 @app.route('/user_profile/<username>')
 def user_profile(username):
-    if 'userLogged' not in session or session['userLogged'] != username:
-        abort(401)
-    return render_template('user_profile.html', title=username)
-    
+    context = {'username': username}
+    return render_template('user_profile.html', **context)
+
+
     
 @app.route('/password_recovery/', methods=['POST', 'GET'])
 def password_recovery():
     form_pass_recovery = PasswordRecoveryForm()
     if request.method == 'POST':
         if form_pass_recovery.validate_on_submit():
-            from models import connection_database
-            connection_database()
             user_email = form_pass_recovery.email.data
             u = User_profile()
             user = u.query.filter_by(email=user_email).first()
@@ -91,22 +85,13 @@ def password_recovery():
                 temporary_password = send_email(user_email) 
                 user.password = generate_password_hash(temporary_password)
                 db.session.commit()
-                
-                return redirect(url_for('send_password_email')) 
+                flash('Временный пароль отправлен на ваш email', category='success') 
+                return redirect(url_for('login')) 
             else:
                 flash('Неверный email', category='error') 
         else:       
             flash('Введите email', category='error')    
     return render_template('password_recovery.html', form=form_pass_recovery)
-
-
-@app.route('/send_password_email/')
-def send_password_email():
-    from time import sleep
-    render_template('send_password_email.html')
-    sleep(1)
-    return redirect(url_for('login'))
-
 
 
 @app.errorhandler(401)
@@ -146,6 +131,7 @@ def edit_user():
     user.email = 'new_email@example.com'
     db.session.commit()
     print('Edit John mail in DB!')
+
 
 @app.cli.command("del")
 def del_user():

@@ -23,6 +23,8 @@ class User_profile(db.Model):
     age = db.Column(db.Integer, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+
+
     def __repr__(self):
         return f'User_profile({self.username}, {self.password}, {self.email}, {self.name}, {self.age}, {self.age}, {self.created_at})'
 

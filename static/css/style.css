@@ -204,7 +204,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
 }
 
 #username, #password, #confirm_password, #email {
-  background-color: #f6f6f6;
+  background-color: white;
   border: none;
   color: #0d0d0d;
   padding: 15px 32px;
@@ -367,14 +367,3 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
 
 /***** END LOGIN_PAGE.HTML *****/
 
-/***** START FLASH_MESSAGES *****/
-
-.flash {padding: 10px;}
-.flash.success {
-  border: 1px solid rgb(88, 240, 174);
-  background:rgb(88, 240, 174);
-}
-.flash.error {
-  border: 1px solid rgb(255, 161, 199);
-  background:rgb(255, 161, 199); 
-}
