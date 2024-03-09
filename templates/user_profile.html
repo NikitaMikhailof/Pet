@@ -1,183 +1,60 @@
-
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{{ url_for('static', filename='css/user_profile.css')}}" rel="stylesheet" />
+    <title>Профиль пользователя</title>
+</head>
 <body>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<div class="container p-0">
-<h1 class="h3 mb-3">Профиль {{ username }}</h1>
-<div class="row">
-<div class="col-md-5 col-xl-4">
-<div class="card">
-<div class="card-header">
-<h5 class="card-title mb-0">Настройки профиля</h5>
-</div>
-<div class="list-group list-group-flush" role="tablist">
-<a class="list-group-item list-group-item-action active" data-toggle="list" href="#account" role="tab">
-Аккаунт
-</a>
-<a class="list-group-item list-group-item-action" data-toggle="list" href="#password" role="tab">
-Пароль
-</a>
-<a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
-Корзина
-</a>
-<a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
-Мои заказы
-</a>
-<a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
-Удалить аккаунт
-</a>
-</div>
-</div>
-</div>
-<div class="col-md-7 col-xl-8">
-<div class="tab-content">
-<div class="tab-pane fade show active" id="account" role="tabpanel">
-<div class="card">
-<div class="card-header">
-<div class="card-actions float-right">
-<div class="dropdown show">
-<a href="#" data-toggle="dropdown" data-display="static">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle">
-<circle cx="12" cy="12" r="1"></circle>
-<circle cx="19" cy="12" r="1"></circle>
-<circle cx="5" cy="12" r="1"></circle>
-</svg>
-</a>
-<div class="dropdown-menu dropdown-menu-right">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-</div>
-<h5 class="card-title mb-0">Информация</h5>
-</div>
-<div class="card-body">
-<form>
-<div class="row">
-<div class="col-md-8">
-<div class="form-group">
-<label for="inputUsername">Логин</label>
-<input type="text" class="form-control" id="inputUsername" placeholder="Пользователь">
-</div>
-<div class="form-group">
-<label for="inputUsername">О себе</label>
-<textarea rows="2" class="form-control" id="inputBio" placeholder="Расскажите что-нибудь о себе"></textarea>
-</div>
-</div>
-<div class="col-md-4">
-<div class="text-center">
-<img alt="Andrew Jones" src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle img-responsive mt-2" width="128" height="128">
-<div class="mt-2">
-<span class="btn btn-primary"><i class="fa fa-upload"></i></span>
-</div>
-<small>Загрузите изображение  128px by 128px в формате .jpg </small>
-</div>
-</div>
-</div>
-<button type="submit" class="btn btn-primary">Сохранить изменения</button>
-</form>
-</div>
-</div>
-<div class="card">
-<div class="card-header">
-<div class="card-actions float-right">
-<div class="dropdown show">
-<a href="#" data-toggle="dropdown" data-display="static">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle">
-<circle cx="12" cy="12" r="1"></circle>
-<circle cx="19" cy="12" r="1"></circle>
-<circle cx="5" cy="12" r="1"></circle>
-</svg>
-</a>
-<div class="dropdown-menu dropdown-menu-right">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-</div>
-</div>
-</div>
-<h5 class="card-title mb-0">Личная информация</h5>
-</div>
-<div class="card-body">
-<form>
-<div class="form-row">
-<div class="form-group col-md-6">
-<label for="inputFirstName">Имя</label>
-<input type="text" class="form-control" id="inputFirstName" placeholder="Имя">
-</div>
-<div class="form-group col-md-6">
-<label for="inputLastName">Пароль</label>
-<input type="text" class="form-control" id="inputLastName" placeholder="Пароль">
-</div>
-</div>
-<div class="form-group">
-<label for="inputEmail4">Email</label>
-<input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-</div>
-<div class="form-group">
-<label for="inputAddress">Возраст</label>
-<input type="text" class="form-control" id="inputAddress" placeholder="Адрес">
-</div>
-<div class="form-group">
-<label for="inputAddress2">Адрес</label>
-<input type="text" class="form-control" id="inputAddress" placeholder="Адрес">
-</div>
-<div class="form-row">
-<div class="form-group col-md-6">
-<label for="inputCity">Город</label>
-<input type="text" class="form-control" id="inputCity">
-</div>
-<div class="form-group col-md-4">
-<label for="inputState">Штат</label>
-<select id="inputState" class="form-control">
-<option selected>Выбрать...</option>
-<option>...</option>
-</select>
-</div>
-<div class="form-group col-md-2">
-<label for="inputZip">Zip</label>
-<input type="text" class="form-control" id="inputZip">
-</div>
-</div>
-<button type="submit" class="btn btn-primary">Сохранить изменения</button>
-</form>
-</div>
-</div>
-</div>
-<div class="tab-pane fade" id="password" role="tabpanel">
-<div class="card">
-<div class="card-body">
-<h5 class="card-title">Пароль</h5>
-<form>
-<div class="form-group">
-<label for="inputPasswordCurrent">Текущий пароль</label>
-<input type="password" class="form-control" id="inputPasswordCurrent">
-<small><a href="#">Забыли пароль</a></small>
-</div>
-<div class="form-group">
-<label for="inputPasswordNew">Новый пароль</label>
-<input type="password" class="form-control" id="inputPasswordNew">
-</div>
-<div class="form-group">
-<label for="inputPasswordNew2">Подтвердите пароль</label>
-<input type="password" class="form-control" id="inputPasswordNew2">
-</div>
-<button type="submit" class="btn btn-primary">Сохранить изменения</button>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">	
-</script>
+    <div class=one_part></div>
+        <div id="header_one">Пользователь</div> 
+        <div id="upload_image">
+            <img src="avatarka.png" alt="Avatar" class="avatar">
+            <form enctype="multipart/form-data" method="post">
+                <p id="upload_user_image""><input type="file" name="f">
+                <input type="submit" value="Загрузить"></p>
+            </form>
+        </div> 
+        <div id="account_action">
+            <a href="password_change.html" id="password_change">Сменить пароль</a>
+            <a href="delete.html" id="delete_profile">Удалить профиль</a>
+            <a href="index.html" id="exit_profile">Выйти</a>
+        </div> 
+    <div class="two_part">
+        <div id="header_two">
+            <a href="orders.html" id="orders">Мои заказы</a>
+            <a href="basket.html" id="basket">Корзина</a>
+            <a href="index.html" id="main_page">Главная</a>
+        </div>
+        <div class="account">
+        <form method="post">   
+            <div>
+                <label class="formlabelname">Имя</label>
+                <input class="forminputname" type="text" name="login"  placeholder="имя" >
+            </div>
+            <div>
+                <label class="formlabelemail">Email</label>
+                <input class="forminputemail" type="text" name="email"  placeholder="email" >
+            </div>
+            <div>
+                <label class="formlabeltelephone">Телефон</label>
+                <input class="forminputtelephone" type="text" name="telephone"  placeholder="телефон" >
+            </div>
+            <div>
+                <label class="formlabelage">Возраст</label>
+                <input class="forminputage" type="text" name="age"  placeholder="возраст" >
+            </div>
+            <div>
+                <label class="formlabeladdress">Адрес</label>
+                <input class="forminputaddress" type="text" name="address"  placeholder="адрес" >
+            </div> 
+        </form>     
+        </div>
+        <div class="account_footer">
+            <a href="index.html" id="change">Сохранить</a>
+        </div>
+    </div>
 </body>
 </html>
 

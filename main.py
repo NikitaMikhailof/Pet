@@ -50,6 +50,9 @@ def registration():
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if 'userLogged' in session:
+        username=session['userLogged']
+        
+        
         return redirect(url_for('user_profile', username=session['userLogged']))
      
     form_login = LoginForm()
