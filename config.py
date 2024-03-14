@@ -1,7 +1,6 @@
-from sqlalchemy import create_engine, text
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-engine = create_engine(url='sqlite+pysqlite:///mydatabase', echo=True)
-
-with engine.connect() as connection:
-    result = connection.execute(statement=text("select'Hello world'"))
-    print(result.scalar())
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
+db = SQLAlchemy(app)

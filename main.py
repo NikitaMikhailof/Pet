@@ -1,9 +1,10 @@
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort
-from models import db, User_profile, Products, User_basket, LoginUser
+from models import db, User, Products, Order, LoginUser
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegistrationForm, PasswordRecoveryForm
+from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword
 from passw_recovery import send_email
+
 
 
 app = Flask(__name__)
@@ -25,17 +26,17 @@ def registration():
             email = form_registration.email.data
             user_name = form_registration.username.data
             hash = generate_password_hash(form_registration.password.data)
-            u = User_profile()
+            u = User()
             user = u.query.filter_by(username=user_name).first()
             try:
                 if user: 
                     flash('Пользователь с таким логином уже существует, придумайте новый', category='error')  
                 else:
-                    new_user = User_profile(email=email, username=user_name, password=hash)
+                    new_user = User(email=email, username=user_name, password=hash)
                     db.session.add(new_user)
                     db.session.commit()
 
-                    user_basket = User_basket(user_id=new_user.id)
+                    user_basket = Order(user_id=new_user.id)
                     db.session.add(user_basket)
                     db.session.commit()  
                     flash('Регистрация прошла успешно', category='success')
@@ -51,13 +52,10 @@ def registration():
 def login():
     if 'userLogged' in session:
         username=session['userLogged']
-        
-        
         return redirect(url_for('user_profile', username=session['userLogged']))
-     
     form_login = LoginForm()
     if form_login.validate_on_submit():
-        u = User_profile()
+        u = User()
         user = u.query.filter_by(username=form_login.username.data).first()
         if user and check_password_hash(user.password, form_login.password.data):
             session['userLogged'] = form_login.username.data
@@ -70,9 +68,26 @@ def login():
 
 @app.route('/user_profile/<username>')
 def user_profile(username):
-    context = {'username': username}
-    return render_template('user_profile.html', **context)
+    return render_template('user_profile.html', username = username)
 
+
+
+@app.route('/user_profile/<username>/change_password', methods=['GET', 'POST'])
+def change_password(username):
+    context = {'username': username}
+    form = СhangePassword()
+    if form.validate_on_submit():
+        passw = form.password.data
+        new_passw = form.new_password.data
+        user = User.query.filter_by(username=username).first() 
+        if check_password_hash(user.password, passw):
+            hash = generate_password_hash(new_passw)
+            user.password = hash
+            db.session.commit()
+            flash('Пароль успешно сохранен', category='success')
+        else:  
+            flash('Неверный пароль', category='success')
+    return render_template('change_password.html', form=form, **context)    
 
     
 @app.route('/password_recovery/', methods=['POST', 'GET'])
@@ -81,12 +96,13 @@ def password_recovery():
     if request.method == 'POST':
         if form_pass_recovery.validate_on_submit():
             user_email = form_pass_recovery.email.data
-            u = User_profile()
+            u = User()
             user = u.query.filter_by(email=user_email).first()
             if user:
                 from passw_recovery import send_email
                 temporary_password = send_email(user_email) 
-                user.password = generate_password_hash(temporary_password)
+                hash = generate_password_hash(temporary_password)
+                user.password  = hash
                 db.session.commit()
                 flash('Временный пароль отправлен на ваш email', category='success') 
                 return redirect(url_for('login')) 
@@ -117,33 +133,35 @@ def init_db():
     db.create_all()
     print('OK')
 
+# user = User_profile.query.filter_by(username='bad1991').first()
+# user.username = 'Mark'
 
-@app.cli.command("add-user")
-def add_user():
-    user = User_profile(username='username', password='passw', 
-                        email='mail@.com', name=None, age=None)
+# @app.cli.command("add-user")
+# def add_user():
+#     user = User_profile(username='username', password='passw', 
+#                         email='mail@.com', name=None, age=None)
     
-    db.session.add(user)
-    db.session.commit()
-    print(f'{user.username} add in DB!')
+#     db.session.add(user)
+#     db.session.commit()
+#     print(f'{user.username} add in DB!')
 
 
-@app.cli.command("edit-john")
-def edit_user():
-    user = User_profile.query.filter_by(username='john').first()
-    user.email = 'new_email@example.com'
-    db.session.commit()
-    print('Edit John mail in DB!')
+# @app.cli.command("edit-john")
+# def edit_user():
+#     user = User_profile.query.filter_by(username='john').first()
+#     user.email = 'new_email@example.com'
+#     db.session.commit()
+#     print('Edit John mail in DB!')
 
 
-@app.cli.command("del")
-def del_user():
-    user = User_profile.query.filter_by(username='12345@12345').first()
-    db.session.delete(user)
-    db.session.commit()
-    print('Delete John from DB!')
- 
-    
+# @app.cli.command("del")
+# def del_user():
+#     user = User_profile.query.filter_by(username='Chester1991').first()
+#     db.session.delete(user)
+#     db.session.commit()
+#     print('Delete John from DB!')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
