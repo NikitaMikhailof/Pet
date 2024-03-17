@@ -9,12 +9,15 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(20), unique=False, nullable=False)
+    telephone = db.Column(db.String(20), nullable=True)
     email = db.Column(db.String(30), unique=True, nullable=False)
     name = db.Column(db.String(20), nullable=True)
     age = db.Column(db.Integer, nullable=True)
     address = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     is_active = db.Column(db.Boolean, default=True)   
+
+    
     
 
     def __repr__(self):

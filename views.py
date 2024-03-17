@@ -51,7 +51,6 @@ def registration():
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if 'userLogged' in session:
-        username=session['userLogged']
         return redirect(url_for('user_profile', username=session['userLogged']))
     form_login = LoginForm()
     if form_login.validate_on_submit():
@@ -67,8 +66,16 @@ def login():
 
 
 @app.route('/user_profile/<username>')
-def user_profile(username):
-    return render_template('user_profile.html', username = username)
+def user_profile(username): 
+    user = User.query.filter_by(username='bad1992').first()
+    context = {'username': user.username,
+               'email': user.email,
+               'telephone': user.telephone,
+               'name': user.name,
+               'age': user.age,
+               'address': user.address,
+               'is_active': user.is_active}
+    return render_template('user_profile.html', **context)
 
 
 
@@ -128,18 +135,23 @@ def pageNotFount(error):
     return render_template('500.html')
 
 
-@app.cli.command("init-db")
-def init_db():
-    db.create_all()
-    print('OK')
+# @app.cli.command("init-db")
+# def init_db():
+#     db.create_all()
+#     print('OK')
 
 # user = User_profile.query.filter_by(username='bad1991').first()
 # user.username = 'Mark'
 
 # @app.cli.command("add-user")
 # def add_user():
-#     user = User_profile(username='username', password='passw', 
-#                         email='mail@.com', name=None, age=None)
+#     user = User(username='bad1992', 
+#                 password='bad1992', 
+#                 email='mikhailoffnikita2016@yandex.ru', 
+#                 name='Никита', 
+#                 age=31,
+#                 telephone='+79821372456',
+#                 address = 'город Волжск ул. Дружбы д.13')
     
 #     db.session.add(user)
 #     db.session.commit()
@@ -148,8 +160,10 @@ def init_db():
 
 # @app.cli.command("edit-john")
 # def edit_user():
-#     user = User_profile.query.filter_by(username='john').first()
-#     user.email = 'new_email@example.com'
+#     user = User.query.filter_by(username='bad1992').first()
+#     user.telephone = '+79821372456'
+#     user.address = 'город Волжск ул. Дружбы д.13'
+#     user.name = 'Никита'
 #     db.session.commit()
 #     print('Edit John mail in DB!')
 
