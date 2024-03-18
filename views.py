@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword
 from passw_recovery import send_email
-
+from flask_login import LoginManager, UserMixin,  login_required, login_user, current_user, logout_user
 
 
 app = Flask(__name__)
@@ -67,7 +67,7 @@ def login():
 
 @app.route('/user_profile/<username>')
 def user_profile(username): 
-    user = User.query.filter_by(username='bad1992').first()
+    user = User.query.filter_by(username=username).first()
     context = {'username': user.username,
                'email': user.email,
                'telephone': user.telephone,
