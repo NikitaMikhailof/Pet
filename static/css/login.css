@@ -1,0 +1,89 @@
+.login {
+    position: relative;
+    top: 50px;
+    left: 370px;
+    width: 500px;
+    height: 500px;
+    border: 3px solid green;
+    border-radius: 20px;
+    background-color: rgb(200, 216, 200); 
+}
+
+.inside {
+    position: relative;
+    top: 100px;
+    left: 13px;
+    width: 470px;
+    height: 385px;
+    border: 0.5px solid green;
+    border-radius: 10px;  
+    background-color: rgb(242, 239, 235);
+}
+
+.form {
+    position: relative;
+    top: 80px;
+    left: 120px;
+    width: 300px;
+    height: 200px;
+}
+
+
+.header {
+    text-align: center;
+    font-size: 40px;
+    position: absolute;
+    top: 12px;
+    left: 13px;
+    width: 470px;
+    height: 70px;
+    border: 0.5px solid green;
+    border-radius: 10px;  
+    background-color: rgb(242, 239, 235);
+}
+
+
+#submit {
+    position: absolute;
+        top: 160px;
+        left: 15px;
+        width: 200px;
+        height: 40px;
+        text-align: center;
+        color: white;
+        background-color: rgb(74, 154, 74);
+        text-decoration: none; /* убирать подчёркивание у ссылок */
+        user-select: none; /* убирать выделение текста */
+        border: 2px solid green; /* фон кнопки */
+        border-radius: 10px;
+        padding: .7em 1.5em; /* отступ от текста */
+        outline: none; /* убирать контур в Mozilla */
+}
+
+#password_recovery {
+    position: relative;
+    top: 100px;
+    left: 170px;
+}
+
+.flash {
+    position: relative;
+    top: 120px;
+    left: 35px;
+    width: 400px;
+    height: 30px;
+    border-radius: 8px;
+    border: green;
+    text-align: center;
+}
+
+.flash.success {
+	border: 1px solid #21DB56;
+	background: #AEFFC5;
+}
+.flash.error {
+	border: 1px solid #FF4343;
+	background: #FF9C9C;
+}
+
+#submit:hover{ background: rgb(126, 218, 158); } /* при наведении курсора мышки

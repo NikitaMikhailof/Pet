@@ -121,7 +121,7 @@
 
 
 
-.two_part{
+.two_part {
     position: relative;
     top: 50px;
     left: 370px;
@@ -366,4 +366,3 @@
 
 #orders:hover, #basket:hover, #main_page:hover, #change:hover, #password_change:hover, #delete_profile:hover, #exit_profile:hover{ background: rgb(126, 218, 158); } /* при наведении курсора мышки
 
-formlabelname

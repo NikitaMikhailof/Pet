@@ -1,0 +1,10 @@
+{
+    "editor.renderWhitespace": "none",
+    "editor.indentSize": "tabSize",
+    "[yaml]": {
+        "editor.tabSize": 4
+    },
+    "[dockercompose]": {
+        "editor.tabSize": 4
+    }
+}
