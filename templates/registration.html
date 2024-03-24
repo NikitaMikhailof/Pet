@@ -1,29 +1,63 @@
-{% extends 'base.html' %}
-
-{% block title %}Регистрация{% endblock %}
-
-{% block content %}
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-      <!-- Tabs Titles -->
-      <h2 class="active">Регистрация </h2>
-
-      <!-- Icon -->
-      <div id="icon">
-        <img src="/static/img/registrations.png"  id="icon" alt="Email Icon" />
-      </div>
-      <!-- Login Form -->
-      <form action="/registration/" method="post">
-        {{ form.csrf_token }}
-        <p id="email" class="fadeIn second">{{ form.email.label }} {{ form.email}}</p>
-        <p id="username" class="fadeIn second">{{ form.username.label }} {{ form.username }}</p>
-        <p id="password" class="fadeIn third">{{ form.password.label}} {{ form.password }}</p>
-        <p id="confirm_password class="fadeIn third">{{ form.confirm_password.label }} {{ form.confirm_password }}</p>
-        <p class="fadeIn fourth">{{ form.submit }}</p>
-        {% for cat, msg in get_flashed_messages(True) %}
-        <div class="flash {{ cat }}">{{ msg }}</div>
-        {% endfor %}
-      </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{{ url_for('static', filename='css/registration.css')}}" rel="stylesheet" />
+    <title>Регистрация</title>
+</head>
+<body>
+    <div class="login">
+        <div class="header">Регистрация</div>
+        <div class="inside">
+            <form class="form" action="" method="post">
+            {{ form.csrf_token }}
+            <p>
+                {{ form.email.label }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    {{ error }}
+                {% endfor %}
+                {% endif %}
+            </p>
+            <p>
+                {{ form.username.label }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    {{ error }}
+                {% endfor %}
+                {% endif %}
+            </p>
+            <p>
+                {{ form.password.label }}
+                {{ form.password }}
+                {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    {{ error }}
+                {% endfor %}
+                {% endif %}
+            </p>
+            <p>
+                {{ form.confirm_password.label }}
+                {{ form.confirm_password }}
+                {% if form.confirm_password.errors %}
+                {% for error in form.confirm_password.errors %}
+                    {{ error }}
+                {% endfor %}
+                {% endif %}
+            </p>
+            <br>
+            <p>
+                {{ form.submit() }}
+            </p>    
+            </form>
+            <a href="{{ url_for('account_recovery') }}">Восстановить учетную запись</a>
+            {% for cat, msg in get_flashed_messages(True) %}
+            <div class="flash {{ cat }}">{{ msg }}</div>
+            {% endfor %}
+        </div>
     </div>
-</div>
-{% endblock %}
+</body>
+</html>

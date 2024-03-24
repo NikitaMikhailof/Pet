@@ -89,7 +89,8 @@ def user_profile(username):
 
 @app.route('/user_profile/<username>/change_password', methods=['GET', 'POST'])
 def change_password(username):
-    context = {'username': username}
+    flag = False
+    username = username
     form = СhangePassword()
     if form.validate_on_submit():
         passw = form.password.data
@@ -99,21 +100,24 @@ def change_password(username):
             hash = generate_password_hash(new_passw)
             user.password = hash
             db.session.commit()
+            flag = True
             flash('Пароль успешно сохранен', category='success')
         else:  
-            flash('Неверный пароль', category='success')
-    return render_template('change_password.html', form=form, **context)    
+            flash('Неверный пароль', category='error')
+    return render_template('change_password.html', form=form, username=username, flag=flag)    
+
 
 @app.route('/logout/')
 @login_required
 def logout():
     logout_user()
-    flash("Вы вышли из аккаунта", category='error')
+    flash("Вы вышли из учетной записи", category='error')
     return redirect(url_for('login'))
 
     
 @app.route('/password_recovery/', methods=['POST', 'GET'])
 def password_recovery():
+    user = None
     form_pass_recovery = PasswordRecoveryForm()
     if request.method == 'POST':
         if form_pass_recovery.validate_on_submit():
@@ -126,13 +130,26 @@ def password_recovery():
                 hash = generate_password_hash(temporary_password)
                 user.password  = hash
                 db.session.commit()
-                flash('Временный пароль отправлен на ваш email', category='success') 
-                return redirect(url_for('login')) 
+                flash('Временный пароль отправлен на ваш email', category='success')  
             else:
                 flash('Неверный email', category='error') 
         else:       
-            flash('Введите email', category='error')    
-    return render_template('password_recovery.html', form=form_pass_recovery)
+            flash('Введите корректный email', category='error')    
+    return render_template('password_recovery.html', form=form_pass_recovery, user=user)
+
+
+@app.route('/account_recovery/', methods=['POST', 'GET'])
+def account_recovery():
+    
+
+
+@app.route('/user_profile/<username>/delete_user_profile/', methods=['POST', 'GET'])
+def delete_user_profile(username):
+    logout_user()
+    u = User()
+    user = u.query.filter_by(username=username).first()
+    user.is_active = False
+    return redirect(url_for('registration'))
 
 
 @app.errorhandler(401)
@@ -158,19 +175,19 @@ def pageNotFount(error):
 # user = User_profile.query.filter_by(username='bad1991').first()
 # user.username = 'Mark'
 
-@app.cli.command("add")
-def add():
-    user = User(username='bad1992', 
-                password='bad1992', 
-                email='mikhailoffnikita2016@yandex.ru', 
-                name='Никита', 
-                age=31,
-                telephone='+79821372456',
-                address = 'город Волжск ул. Дружбы д.13')
+# @app.cli.command("add")
+# def add():
+#     user = User(username='bad1992', 
+#                 password='bad1992', 
+#                 email='mikhailoffnikita2016@yandex.ru', 
+#                 name='Никита', 
+#                 age=31,
+#                 telephone='+79821372456',
+#                 address = 'город Волжск ул. Дружбы д.13')
     
-    db.session.add(user)
-    db.session.commit()
-    print(f'{user.username} add in DB!')
+#     db.session.add(user)
+#     db.session.commit()
+#     print(f'{user.username} add in DB!')
 
 
 # @app.cli.command("edit-john")
@@ -183,12 +200,12 @@ def add():
 #     print('Edit John mail in DB!')
 
 
-@app.cli.command("del-user")
-def del_user():
-    user = User.query.filter_by(username='bad1992').first()
-    db.session.delete(user)
-    db.session.commit()
-    print('Delete John from DB!')
+# @app.cli.command("del-user")
+# def del_user():
+#     user = User.query.filter_by(username='bad1992').first()
+#     db.session.delete(user)
+#     db.session.commit()
+#     print('Delete John from DB!')
 
 
 

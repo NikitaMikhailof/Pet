@@ -40,7 +40,9 @@ class User(db.Model, UserMixin):
         return False
 
     def get_id(self):
-        return (self.id)
+        return (self.id) 
+    
+
     
 
 class Products(db.Model):
