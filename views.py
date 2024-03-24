@@ -223,12 +223,12 @@ def pageNotFount(error):
 #     print('Edit John mail in DB!')
 
 
-@app.cli.command("del-user")
-def del_user():
-    user = User.query.filter_by(username='bad1992').first()
-    db.session.delete(user)
-    db.session.commit()
-    print('Delete  from DB!')
+# @app.cli.command("del-user")
+# def del_user():
+#     user = User.query.filter_by(username='bad1992').first()
+#     db.session.delete(user)
+#     db.session.commit()
+#     print('Delete  from DB!')
 
 
 
