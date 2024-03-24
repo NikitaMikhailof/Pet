@@ -31,7 +31,7 @@
 
 .header {
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
     position: absolute;
     top: 12px;
     left: 13px;
@@ -71,7 +71,7 @@
     top: 120px;
     left: 35px;
     width: 400px;
-    height: 30px;
+    height: 40px;
     border-radius: 8px;
     border: green;
     text-align: center;

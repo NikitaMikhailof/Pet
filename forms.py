@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 
 
@@ -27,8 +27,10 @@ class PasswordRecoveryForm(FlaskForm):
     email = StringField('Email', validators=[Email()])
     submit = SubmitField('Отправить')
   
-
 class СhangePassword(FlaskForm):
     password = PasswordField('Пароль', validators=[DataRequired(), Length(min=6)])
     new_password = PasswordField('Новый пароль', validators=[DataRequired(), Length(min=6)])
     submit = SubmitField('Сохранить')
+
+class AccountRecoveryForm(PasswordRecoveryForm):   
+    pass

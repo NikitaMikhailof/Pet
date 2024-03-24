@@ -66,6 +66,11 @@
     left: 170px;
 }
 
+#account_recovery {
+    position: relative;
+    top: 120px;
+    left: 130px;
+}
 .flash {
     position: relative;
     top: 120px;

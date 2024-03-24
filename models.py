@@ -26,15 +26,6 @@ class User(db.Model, UserMixin):
 
     def check_password(self,  password):
         return check_password_hash(self.password, password)
-    
-    def set_password(self, password):
-	    self.password = generate_password_hash(password)
-
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return True
 
     def is_anonymous(self):
         return False
@@ -42,8 +33,13 @@ class User(db.Model, UserMixin):
     def get_id(self):
         return (self.id) 
     
-
+    def is_authenticated(self):
+        return True
     
+    def set_password(self, password):
+	    self.password = generate_password_hash(password)
+    
+
 
 class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True)

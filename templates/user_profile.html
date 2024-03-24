@@ -18,7 +18,7 @@
         </div> 
         <div id="account_action">
             <a href="{{ url_for('change_password', username=username)}}" id="password_change">Сменить пароль</a>
-            <a href="delete.html" id="delete_profile">Удалить профиль</a>
+            <a href="{{ url_for('delete_user_profile', username=username) }}" id="delete_profile">Удалить профиль</a>
             <a href="{{ url_for('logout') }}" id="exit_profile">Выйти</a>
         </div> 
     <div class="two_part">

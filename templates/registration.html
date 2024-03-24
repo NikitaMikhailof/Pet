@@ -53,7 +53,7 @@
                 {{ form.submit() }}
             </p>    
             </form>
-            <a href="{{ url_for('account_recovery') }}">Восстановить учетную запись</a>
+            <a id="account_recovery" href="{{ url_for('account_recovery') }}">Восстановить учетную запись</a>
             {% for cat, msg in get_flashed_messages(True) %}
             <div class="flash {{ cat }}">{{ msg }}</div>
             {% endfor %}

@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, flash, session, redi
 from models import db, User, Products, Order
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword
+from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword, AccountRecoveryForm
 from passw_recovery import send_email
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 
@@ -64,7 +64,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = db.session.query(User).filter(User.username == form.username.data).first()
-        if user and user.check_password(form.password.data):
+        if user and user.check_password(form.password.data) and user.is_active == True:
             login_user(user, remember=form.remember.data)
             return redirect(url_for('user_profile', username=current_user.username))
         flash("Неверный логин / пароль", 'error')
@@ -140,15 +140,38 @@ def password_recovery():
 
 @app.route('/account_recovery/', methods=['POST', 'GET'])
 def account_recovery():
+    user = None
+    form_account_recovery = AccountRecoveryForm()
+    if request.method == 'POST':
+        if form_account_recovery.validate_on_submit():
+            user_email = form_account_recovery.email.data
+            u = User()
+            user = u.query.filter_by(email=user_email).first()
+            if user:
+                import secrets
+                from account_recovery import send_email
+                password = secrets.token_hex(5)
+                hash = generate_password_hash(password)
+                user.password  = hash 
+                user.is_active = True
+                context = {'login': user.username, 'password': password}
+                send_email(user_email, **context) 
+                db.session.commit()
+                flash('Инструкция для восстановления учетной записи отправлена на ваш email', category='success')  
+            else:
+                flash('Неверный email', category='error') 
+        else:       
+            flash('Введите корректный email', category='error')    
+    return render_template('account_recovery.html', form=form_account_recovery, user=user)
+
     
-
-
 @app.route('/user_profile/<username>/delete_user_profile/', methods=['POST', 'GET'])
 def delete_user_profile(username):
     logout_user()
     u = User()
     user = u.query.filter_by(username=username).first()
     user.is_active = False
+    db.session.commit()
     return redirect(url_for('registration'))
 
 
@@ -200,12 +223,12 @@ def pageNotFount(error):
 #     print('Edit John mail in DB!')
 
 
-# @app.cli.command("del-user")
-# def del_user():
-#     user = User.query.filter_by(username='bad1992').first()
-#     db.session.delete(user)
-#     db.session.commit()
-#     print('Delete John from DB!')
+@app.cli.command("del-user")
+def del_user():
+    user = User.query.filter_by(username='bad1992').first()
+    db.session.delete(user)
+    db.session.commit()
+    print('Delete  from DB!')
 
 
 
