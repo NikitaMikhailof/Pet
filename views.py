@@ -1,21 +1,30 @@
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort
-from models import db, User, Products, Order, LoginUser
+from models import db, User, Products, Order
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword
+from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword, AccountRecoveryForm
 from passw_recovery import send_email
-from flask_login import LoginManager, UserMixin,  login_required, login_user, current_user, logout_user
+from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '4470a67a983583b8d6287e88b4f25ca5bf212514b0add95fde48a5e6abbd6dd0'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 db.init_app(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.session.query(User).get(user_id)
 
 
 @app.route('/')
 def index():
     return render_template('index.html') 
+
 
  
 @app.route('/registration/', methods=['POST', 'GET'])
@@ -46,28 +55,27 @@ def registration():
         else:            
             flash('Данные введены не корректно', category='error')
     return  render_template('registration.html', form=form_registration)    
-                   
 
-@app.route('/login/', methods=['GET', 'POST'])
+
+@app.route('/login/', methods=['post', 'get'])
 def login():
-    if 'userLogged' in session:
-        return redirect(url_for('user_profile', username=session['userLogged']))
-    form_login = LoginForm()
-    if form_login.validate_on_submit():
-        u = User()
-        user = u.query.filter_by(username=form_login.username.data).first()
-        if user and check_password_hash(user.password, form_login.password.data):
-            session['userLogged'] = form_login.username.data
-            return redirect(url_for('user_profile', username=session['userLogged']))
-        else:
-            flash('Неверный логин / пароль', category='error')
-
-    return render_template('login.html', form=form_login)    
-
+    if current_user.is_authenticated:
+	    return redirect(url_for('user_profile', username=current_user.username))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = db.session.query(User).filter(User.username == form.username.data).first()
+        if user and user.check_password(form.password.data) and user.is_active == True:
+            login_user(user, remember=form.remember.data)
+            return redirect(url_for('user_profile', username=current_user.username))
+        flash("Неверный логин / пароль", 'error')
+        return redirect(url_for('login'))
+    return render_template('login.html', form=form)
+            
 
 @app.route('/user_profile/<username>')
+@login_required
 def user_profile(username): 
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username='bad1992').first()
     context = {'username': user.username,
                'email': user.email,
                'telephone': user.telephone,
@@ -81,7 +89,8 @@ def user_profile(username):
 
 @app.route('/user_profile/<username>/change_password', methods=['GET', 'POST'])
 def change_password(username):
-    context = {'username': username}
+    flag = False
+    username = username
     form = СhangePassword()
     if form.validate_on_submit():
         passw = form.password.data
@@ -91,14 +100,24 @@ def change_password(username):
             hash = generate_password_hash(new_passw)
             user.password = hash
             db.session.commit()
+            flag = True
             flash('Пароль успешно сохранен', category='success')
         else:  
-            flash('Неверный пароль', category='success')
-    return render_template('change_password.html', form=form, **context)    
+            flash('Неверный пароль', category='error')
+    return render_template('change_password.html', form=form, username=username, flag=flag)    
+
+
+@app.route('/logout/')
+@login_required
+def logout():
+    logout_user()
+    flash("Вы вышли из учетной записи", category='error')
+    return redirect(url_for('login'))
 
     
 @app.route('/password_recovery/', methods=['POST', 'GET'])
 def password_recovery():
+    user = None
     form_pass_recovery = PasswordRecoveryForm()
     if request.method == 'POST':
         if form_pass_recovery.validate_on_submit():
@@ -111,13 +130,49 @@ def password_recovery():
                 hash = generate_password_hash(temporary_password)
                 user.password  = hash
                 db.session.commit()
-                flash('Временный пароль отправлен на ваш email', category='success') 
-                return redirect(url_for('login')) 
+                flash('Временный пароль отправлен на ваш email', category='success')  
             else:
                 flash('Неверный email', category='error') 
         else:       
-            flash('Введите email', category='error')    
-    return render_template('password_recovery.html', form=form_pass_recovery)
+            flash('Введите корректный email', category='error')    
+    return render_template('password_recovery.html', form=form_pass_recovery, user=user)
+
+
+@app.route('/account_recovery/', methods=['POST', 'GET'])
+def account_recovery():
+    user = None
+    form_account_recovery = AccountRecoveryForm()
+    if request.method == 'POST':
+        if form_account_recovery.validate_on_submit():
+            user_email = form_account_recovery.email.data
+            u = User()
+            user = u.query.filter_by(email=user_email).first()
+            if user:
+                import secrets
+                from account_recovery import send_email
+                password = secrets.token_hex(5)
+                hash = generate_password_hash(password)
+                user.password  = hash 
+                user.is_active = True
+                context = {'login': user.username, 'password': password}
+                send_email(user_email, **context) 
+                db.session.commit()
+                flash('Инструкция для восстановления учетной записи отправлена на ваш email', category='success')  
+            else:
+                flash('Неверный email', category='error') 
+        else:       
+            flash('Введите корректный email', category='error')    
+    return render_template('account_recovery.html', form=form_account_recovery, user=user)
+
+    
+@app.route('/user_profile/<username>/delete_user_profile/', methods=['POST', 'GET'])
+def delete_user_profile(username):
+    logout_user()
+    u = User()
+    user = u.query.filter_by(username=username).first()
+    user.is_active = False
+    db.session.commit()
+    return redirect(url_for('registration'))
 
 
 @app.errorhandler(401)
@@ -143,8 +198,8 @@ def pageNotFount(error):
 # user = User_profile.query.filter_by(username='bad1991').first()
 # user.username = 'Mark'
 
-# @app.cli.command("add-user")
-# def add_user():
+# @app.cli.command("add")
+# def add():
 #     user = User(username='bad1992', 
 #                 password='bad1992', 
 #                 email='mikhailoffnikita2016@yandex.ru', 
@@ -168,12 +223,12 @@ def pageNotFount(error):
 #     print('Edit John mail in DB!')
 
 
-# @app.cli.command("del")
-# def del_user():
-#     user = User_profile.query.filter_by(username='Chester1991').first()
-#     db.session.delete(user)
-#     db.session.commit()
-#     print('Delete John from DB!')
+@app.cli.command("del-user")
+def del_user():
+    user = User.query.filter_by(username='bad1992').first()
+    db.session.delete(user)
+    db.session.commit()
+    print('Delete  from DB!')
 
 
 

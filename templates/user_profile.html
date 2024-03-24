@@ -18,36 +18,36 @@
         </div> 
         <div id="account_action">
             <a href="{{ url_for('change_password', username=username)}}" id="password_change">Сменить пароль</a>
-            <a href="delete.html" id="delete_profile">Удалить профиль</a>
-            <a href="index.html" id="exit_profile">Выйти</a>
+            <a href="{{ url_for('delete_user_profile', username=username) }}" id="delete_profile">Удалить профиль</a>
+            <a href="{{ url_for('logout') }}" id="exit_profile">Выйти</a>
         </div> 
     <div class="two_part">
         <div id="header_two">
             <a href="orders.html" id="orders">Мои заказы</a>
             <a href="basket.html" id="basket">Корзина</a>
-            <a href="{{ url_for('index')}}" id="main_page">Главная</a>
+            <a href="{{ url_for('index') }}" id="main_page">Главная</a>
         </div>
         <div class="account">
         <form method="post">   
             <div>
                 <label class="formlabelname">Имя</label>
-                <input class="forminputname" type="text" name="login"  placeholder="{{ name }}" >
+                <input class="forminputname" type="text" name="login"  placeholder="имя" >
             </div>
             <div>
                 <label class="formlabelemail">Email</label>
-                <input class="forminputemail" type="text" name="email"  placeholder="{{ email }}" >
+                <input class="forminputemail" type="text" name="email"  placeholder="email" >
             </div>
             <div>
                 <label class="formlabeltelephone">Телефон</label>
-                <input class="forminputtelephone" type="text" name="telephone"  placeholder="{{ telephone }}" >
+                <input class="forminputtelephone" type="text" name="telephone"  placeholder="телефон" >
             </div>
             <div>
                 <label class="formlabelage">Возраст</label>
-                <input class="forminputage" type="text" name="age"  placeholder="{{ age }}" >
+                <input class="forminputage" type="text" name="age"  placeholder="возраст" >
             </div>
             <div>
                 <label class="formlabeladdress">Адрес</label>
-                <input class="forminputaddress" type="text" name="address"  placeholder="{{ address }}" >
+                <input class="forminputaddress" type="text" name="address"  placeholder="адрес" >
             </div> 
         </form>     
         </div>
