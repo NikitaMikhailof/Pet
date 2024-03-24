@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{{ url_for('static', filename='css/login.css')}}" rel="stylesheet" />
+    <title>Восстановление учетной записи</title>
+</head>
+<body>
+    <div class="login">
+        <div class="header">Восстановление учетной записи</div>
+        <div class="inside">
+            <form class="form" action="" method="post">
+                {{ form.csrf_token }}
+                {{ form.email.label }} {{ form.email }}
+                {{ form.submit }}
+            </form>
+            {% for cat, msg in get_flashed_messages(True) %}
+            <div class="flash {{ cat }}">{{ msg }}</div>
+            {% endfor %}
+            {% if user %}
+                <a id="back" href="{{ url_for('login') }}">Назад</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
