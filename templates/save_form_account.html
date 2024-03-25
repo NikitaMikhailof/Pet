@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{{ url_for('static', filename='css/user_profile.css')}}" rel="stylesheet" />
+    <title>Изменение учетной записи пользователя {{ user.username }}</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="change_account">
+            <form action="" method="post">   
+                {{ form.csrf_token }}
+                <p>
+                    {{ form.name.label(class="form_name_label") }}
+                    {% if user.name %}
+                        <p id="user_name">{{ user.name }}</p>
+                        {{ form.name(class="form_name", placeholder=user.name) }}
+                    {% else %}    
+                        {{ form.name(class="form_name", placeholder='Введите имя') }}
+                    {% endif %}
+                    {% for error in form.name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                <p>
+                    {{ form.email.label(class="form_email_label") }}
+                    <p id="user_email">{{ user.email }}</p>
+                    {{ form.email(class="form_email", placeholder=user.email) }}
+                    {% for error in form.email.errors %}
+                        {{ error }}
+                    {% endfor %}
+                <br>
+                <p>
+                    {{ form.telephone.label(class="form_telephone_label") }}
+                    {% if user.telephone %}
+                        <p id="user_telephone">{{ user.telephone }}</p>
+                        {{ form.telephone(class="form_telephone", placeholder=user.telephone) }}
+                    {% else %}    
+                        {{ form.telephone(class="form_telephone", placeholder='Введите телефон') }}
+                    {% endif %}
+                    {% for error in form.telephone.errors %}
+                        {{ error }}
+                    {% endfor %}
+                <br>
+                <p>
+                    {{ form.age.label(class="form_age_label") }}
+                    {% if user.age %}
+                        <p id="user_age">{{ user.age }}</p>
+                        {{ form.age(class="form_age", placeholder=user.age) }}
+                    {% else %}    
+                        {{ form.age(class="form_age", placeholder='Введите возраст') }}
+                    {% endif %}
+                    {% for error in form.age.errors %}
+                        {{ error }}
+                    {% endfor %}
+                <br>
+                <p>
+                    {{ form.address.label(class="form_address_label") }}
+                    {% if user.address %}
+                        <p id="user_address">{{ user.address }}</p>
+                        {{ form.address(class="form_address", placeholder=user.address) }}
+                    {% else %}    
+                        {{ form.address(class="form_address", placeholder='Введите адрес (город, улица, дом, кв.)') }}
+                    {% endif %}
+                    {% for error in form.address.errors %}
+                        {{ error }}
+                    {% endfor %}
+                <br>
+                {{ form.submit(class="form_submit") }}
+            </form> 
+            
+            {% for cat, msg in get_flashed_messages(True) %}
+                <div class="flash {{ cat }}">{{ msg }}</div>
+            {% endfor %}
+            <br> <br>
+            <a id="link_save_account" href="{{ url_for('user_profile', username=user.username) }} ">Назад</a>
+        </div> 
+    </div>    
+</body>
+</html>
