@@ -36,6 +36,7 @@
             </p>
                 {{ form.submit() }}
             </form>
+            <a id="password_recovery" href="{{ url_for('password_recovery') }}">Забыли пароль?</a>
             {% for cat, msg in get_flashed_messages(True) %}
             <div class="flash {{ cat }}">{{ msg }}</div>
             {% endfor %}

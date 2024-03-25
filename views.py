@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, flash, session, redi
 from models import db, User, Products, Order
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword, AccountRecoveryForm
+from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword, AccountRecoveryForm, UserProfile
 from passw_recovery import send_email
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 
@@ -72,22 +72,16 @@ def login():
     return render_template('login.html', form=form)
             
 
-@app.route('/user_profile/<username>')
+@app.route('/user_profile/<username>/', methods=['GET', 'POST'])
 @login_required
 def user_profile(username): 
-    user = User.query.filter_by(username='bad1992').first()
-    context = {'username': user.username,
-               'email': user.email,
-               'telephone': user.telephone,
-               'name': user.name,
-               'age': user.age,
-               'address': user.address,
-               'is_active': user.is_active}
-    return render_template('user_profile.html', **context)
+    form = UserProfile()
+    user = current_user
+    return render_template('user_profile.html', form=form, user=current_user)
 
 
-
-@app.route('/user_profile/<username>/change_password', methods=['GET', 'POST'])
+@app.route('/user_profile/<username>/change_password/', methods=['GET', 'POST'])
+@login_required
 def change_password(username):
     flag = False
     username = username
@@ -107,9 +101,9 @@ def change_password(username):
     return render_template('change_password.html', form=form, username=username, flag=flag)    
 
 
-@app.route('/logout/')
+@app.route('/user_profile/<username>/logout/')
 @login_required
-def logout():
+def logout(username):
     logout_user()
     flash("Вы вышли из учетной записи", category='error')
     return redirect(url_for('login'))
@@ -166,13 +160,32 @@ def account_recovery():
 
     
 @app.route('/user_profile/<username>/delete_user_profile/', methods=['POST', 'GET'])
+@login_required
 def delete_user_profile(username):
     logout_user()
-    u = User()
-    user = u.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first()
     user.is_active = False
     db.session.commit()
     return redirect(url_for('registration'))
+
+
+@app.route('/user_profile/<username>/save_form_account/', methods=['POST', 'GET'])
+@login_required
+def save_form_account(username):
+    user = User.query.filter_by(username=username).first()
+    form = UserProfile()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            user.email = form.email.data
+            user.name = form.name.data
+            user.age = form.age.data
+            user.telephone = form.telephone.data
+            user.address = form.address.data     
+            db.session.commit()
+            flash('Ваши данные обновлены', category='success')
+        else:    
+            flash('Форма заполнена неккоректно', category='error')
+    return render_template('save_form_account.html', form=form, user=user)
 
 
 @app.errorhandler(401)
