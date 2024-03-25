@@ -12,7 +12,8 @@
         <div class="inside">
             <form class="form" action="" method="post">
                 {{ form.csrf_token }}
-                {{ form.email.label }} {{ form.email }}
+                {{ form.email.label(class="form_email_label") }}
+                {{ form.email(class="form_email", placeholder='Введите email указанный при регистрации') }}
                 {{ form.submit }}
             </form>
             {% for cat, msg in get_flashed_messages(True) %}

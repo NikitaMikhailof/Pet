@@ -13,8 +13,8 @@
             <form class="form" action="" method="post">
             {{ form.csrf_token }}
             <p>
-                {{ form.email.label }}
-                {{ form.email }}
+                {{ form.email.label(class="form_email_label") }}
+                {{ form.email(class="form_email", placeholder="введите ваш email") }}
                 {% if form.email.errors %}
                 {% for error in form.email.errors %}
                     {{ error }}
@@ -22,8 +22,8 @@
                 {% endif %}
             </p>
             <p>
-                {{ form.username.label }}
-                {{ form.username }}
+                {{ form.username.label(class="form_username_label") }}
+                {{ form.username(class="form_username", placeholder="введите ваш логин") }}
                 {% if form.username.errors %}
                 {% for error in form.username.errors %}
                     {{ error }}
@@ -31,8 +31,8 @@
                 {% endif %}
             </p>
             <p>
-                {{ form.password.label }}
-                {{ form.password }}
+                {{ form.password.label(class="form_password_label") }}
+                {{ form.password(class="form_password", placeholder="введите пароль") }}
                 {% if form.password.errors %}
                 {% for error in form.password.errors %}
                     {{ error }}
@@ -40,8 +40,8 @@
                 {% endif %}
             </p>
             <p>
-                {{ form.confirm_password.label }}
-                {{ form.confirm_password }}
+                {{ form.confirm_password.label(class="form_password_confirm_label") }}
+                {{ form.confirm_password(class="form_password_confirm", placeholder="повторите ваш пароль") }}
                 {% if form.confirm_password.errors %}
                 {% for error in form.confirm_password.errors %}
                     {{ error }}
@@ -50,7 +50,7 @@
             </p>
             <br>
             <p>
-                {{ form.submit() }}
+                {{ form.submit(class="submit") }}
             </p>    
             </form>
             <a id="account_recovery" href="{{ url_for('account_recovery') }}">Восстановить учетную запись</a>

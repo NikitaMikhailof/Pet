@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" href="{{ url_for('static', filename='css/user_profile.css')}}" rel="stylesheet" />
+    <link type="text/css" href="{{ url_for('static', filename='css/save_form_account.css')}}" rel="stylesheet" />
     <title>Изменение учетной записи пользователя {{ user.username }}</title>
 </head>
 <body>
@@ -24,7 +24,7 @@
                     {% endfor %}
                 <p>
                     {{ form.email.label(class="form_email_label") }}
-                    <p id="user_email">{{ user.email }}</p>
+                        <p id="user_email">{{ user.email }}</p>
                     {{ form.email(class="form_email", placeholder=user.email) }}
                     {% for error in form.email.errors %}
                         {{ error }}
@@ -57,7 +57,16 @@
                 <p>
                     {{ form.address.label(class="form_address_label") }}
                     {% if user.address %}
-                        <p id="user_address">{{ user.address }}</p>
+                        {% if user.address|length > 40 %}
+                        <p id="user_address">
+                            {{ user.address[:40] }}<br>
+                            {{ user.address[40:] }}
+                        </p>
+                        {% else %}
+                        <p id="user_address">
+                            {{ user.address}}
+                        </p>
+                        {% endif %}    
                         {{ form.address(class="form_address", placeholder=user.address) }}
                     {% else %}    
                         {{ form.address(class="form_address", placeholder='Введите адрес (город, улица, дом, кв.)') }}
@@ -65,15 +74,13 @@
                     {% for error in form.address.errors %}
                         {{ error }}
                     {% endfor %}
-                <br>
+                    
                 {{ form.submit(class="form_submit") }}
             </form> 
-            
+            <a id="link_save_account" href="{{ url_for('user_profile', username=user.username) }} ">Назад</a><br>
             {% for cat, msg in get_flashed_messages(True) %}
                 <div class="flash {{ cat }}">{{ msg }}</div>
             {% endfor %}
-            <br> <br>
-            <a id="link_save_account" href="{{ url_for('user_profile', username=user.username) }} ">Назад</a>
         </div> 
     </div>    
 </body>

@@ -1,3 +1,7 @@
+body {
+    background-image: url("https://mobimg.b-cdn.net/v3/fetch/d0/d0e45034fed282d858254cf36879fa14.jpeg?w=1470&r=0.5625");
+}
+
 .one_part{
     float:left;
     position: relative;
@@ -160,27 +164,6 @@
 
 }
 
-.change_account {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 470px;
-    height: 540px;
-    border: 0.5px solid green;
-    border-radius: 10px;  
-    background-color: rgb(242, 239, 235);
-}    
-
-.wrapper {
-    position: absolute;
-    top: 90px;
-    left: 400px;
-    width: 500px;
-    height: 570px;
-    border: 3px solid green;
-    border-radius: 20px;
-    background-color: rgb(200, 216, 200); 
-}
 
 .account_footer{
     position: absolute;
@@ -293,7 +276,7 @@
 
 .form_address_label {
     position: absolute;
-    top: 320px;
+    top: 310px;
     left: 20px;
     display: block;
     margin-bottom: 0.25rem;
@@ -367,7 +350,7 @@
 
 .form_address {
     position: absolute;
-    top: 320px;
+    top: 310px;
     left: 150px;
     display: block;
     width: 270px;
@@ -381,66 +364,6 @@
     
 }    
 
-#user_name {
-    position: relative;
-    top: 0px;
-    left: 150px;
-}
-
-#user_email {
-    position: relative;
-    top: 35px;
-    left: 150px;
-}
-
-#user_telephone {
-    position: relative;
-    top: 40px;
-    left: 150px;
-}
-
-#user_age {
-    position: relative;
-    top: 45px;
-    left: 150px;
-}
-
-#user_address {
-    position: relative;
-    top: 45px;
-    left: 150px;
-}
-
-#link_save_account {
-    position: relative;
-    top: 150px;
-    left: 220px;
-}
-
-.form-contact .invalid {
-    display: inline-block;
-    background: #FF9898;
-}
-.form-contact .invalid-feedback {
-    color: #CC0000;
-}
-
-.form_submit { 
-    position: absolute;
-    top: 450px;
-    left: 170px;
-    width: 150px;
-    height: 37px;
-    text-align: center;
-    color: white;
-    background-color: rgb(74, 154, 74);
-    text-decoration: none; /* убирать подчёркивание у ссылок */
-    user-select: none; /* убирать выделение текста */
-    border: 2px solid green; /* фон кнопки */
-    border-radius: 10px;
-    padding: .7em 1.5em; /* отступ от текста */
-    outline: none; /* убирать контур в Mozilla */
-}
 
 .flash {
     position: relative;

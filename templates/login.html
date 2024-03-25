@@ -13,8 +13,8 @@
             <form class="form" action="" method="post">
             {{ form.csrf_token }}
             <p>
-                {{ form.username.label() }}
-                {{ form.username() }}<br><br>
+                {{ form.username.label(class="form_username_label") }}
+                {{ form.username(class="form_username", placeholder="введите логин") }}
                 {% if form.username.errors %}
                 {% for error in form.username.errors %}
                     {{ error }}
@@ -22,8 +22,8 @@
                 {% endif %}
             </p>
             <p>
-                {{ form.password.label() }}
-                {{ form.password() }}<br><br>
+                {{ form.password.label(class="form_password_label") }}
+                {{ form.password(class="form_password") }}
                 {% if form.password.errors %}
                 {% for error in form.password.errors %}
                     {{ error }}
@@ -31,12 +31,13 @@
                 {% endif %}
             </p>
             <p>
-                {{ form.remember.label() }}
-                {{ form.remember() }}
+                {{ form.remember.label(class="form_remember_label") }}
+                {{ form.remember(class="form_remember") }}
             </p>
                 {{ form.submit() }}
             </form>
             <a id="password_recovery" href="{{ url_for('password_recovery') }}">Забыли пароль?</a>
+            <a id="registration" href="{{ url_for('registration') }}">Регистрация</a>
             {% for cat, msg in get_flashed_messages(True) %}
             <div class="flash {{ cat }}">{{ msg }}</div>
             {% endfor %}

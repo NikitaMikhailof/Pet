@@ -111,7 +111,6 @@ def logout(username):
     
 @app.route('/password_recovery/', methods=['POST', 'GET'])
 def password_recovery():
-    user = None
     form_pass_recovery = PasswordRecoveryForm()
     if request.method == 'POST':
         if form_pass_recovery.validate_on_submit():
@@ -129,7 +128,7 @@ def password_recovery():
                 flash('Неверный email', category='error') 
         else:       
             flash('Введите корректный email', category='error')    
-    return render_template('password_recovery.html', form=form_pass_recovery, user=user)
+    return render_template('password_recovery.html', form=form_pass_recovery)
 
 
 @app.route('/account_recovery/', methods=['POST', 'GET'])
