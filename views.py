@@ -225,6 +225,11 @@ def save_form_account(username):
     return render_template('save_form_account.html', form=form, user=user)
 
 
+@app.route('/user_profile/<username>/orders/', methods=['POST', 'GET'])
+@login_required
+def orders(username):
+    return render_template('orders.html', username=username) 
+
 @app.errorhandler(401)
 def pageNotFount(error):
     return render_template('401.html')

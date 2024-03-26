@@ -7,7 +7,25 @@
     <title>Главная</title>
 </head>
 <body>
-    <h1>ГЛАВНАЯ СТРАНИЦА ПРОЕКТА</h1>
-    <a href="{{ url_for('login') }}" id="login">Войти</a></body>
+    <div class="header">
+        <a href="{{ url_for('login') }}" id="login">Войти</a>
+        <a href="{{ url_for('login') }}" id="basket">Корзина</a>
+        <div class="info">
+            <p>Адрес: Волжск, ул.Ленина 52</p>
+            <p>Ежедневно, 10:00–22:00</p>
+        </div>
+        <div class="info_telephone">
+            <p>Заказ столика: +7 (960) 095-99-55</p>
+            <p>Доставка: +7 (960) 095-99-55</p>
+        </div>
+        <p id="name_restoran">Modernissimo</p>
+    </div>
+</body>
+<footer class="footer">
+    <div class="social-links">
+        <a href="https://vk.com/modernissimodolcevita" class="vk">Вконтакте</a>
+        <a href="https://wa.me/+79600959955" class="Whatsapp">Whatsapp</a>
+    </div>
+</footer>
 </html>
 
