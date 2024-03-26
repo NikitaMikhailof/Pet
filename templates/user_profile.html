@@ -7,72 +7,75 @@
     <title>Профиль пользователя {{ user.username }}</title>
 </head>
 <body>
-    <div class=one_part></div>
-        <div id="header_one">{{ user.username }}</div> 
-        <div id="upload_image">
-            <form enctype="multipart/form-data" method="post">
-                <p id="upload_user_image"><input type="file" name="f">
-                <input type="submit" value="Загрузить"></p>
-            </form>
-        </div> 
-        <div id="account_action">
-            <a href="{{ url_for('change_password', username=user.username) }}" id="password_change">Сменить пароль</a>
-            <a href="{{ url_for('delete_user_profile', username=user.username) }}" id="delete_profile">Удалить профиль</a>
-            <a href="{{ url_for('logout',username=user.username) }}" id="exit_profile">Выйти</a>
-        </div> 
-    <div class="two_part">
-        <div id="header_two">
-            <a href="orders.html" id="orders">Мои заказы</a>
-            <a href="basket.html" id="basket">Корзина</a>
-            <a href="{{ url_for('index') }}" id="main_page">Главная</a>
-        </div>
-        <div class="account">  
-                <p class="form_name_label">Имя</p>
-                <p class="form_name">{{ user.name }}</p>
-                {% if user.name %}
+    <div class="profile">
+        <div class=one_part></div>
+            <div id="header_one">{{ user.username }}</div> 
+            <div id="upload_image">
+                <div class="profile-ava"><img src="{{ url_for('userava') }}"></div>
+                <form id="upload_form" action="{{ url_for('upload') }}" enctype="multipart/form-data" method="post">
+                    <p><input type="file" name="file">
+                    <p><input type="submit" value="Загрузить">   
+                </form>
+            </div>     
+            <div id="account_action">
+                <a href="{{ url_for('change_password', username=user.username) }}" id="password_change">Сменить пароль</a>
+                <a href="{{ url_for('delete_user_profile', username=user.username) }}" id="delete_profile">Удалить профиль</a>
+                <a href="{{ url_for('logout',username=user.username) }}" id="exit_profile">Выйти</a>
+            </div> 
+        <div class="two_part">
+            <div id="header_two">
+                <a href="orders.html" id="orders">Мои заказы</a>
+                <a href="basket.html" id="basket">Корзина</a>
+                <a href="{{ url_for('index') }}" id="main_page">Главная</a>
+            </div>
+            <div class="account">  
+                    <p class="form_name_label">Имя</p>
                     <p class="form_name">{{ user.name }}</p>
-                {% else %}    
-                    <p class="form_name">Имя</p>
-                {% endif %}
-            <br>
-            <p>
-                <p class="form_email_label">Email</p>
-                <p class="form_email">{{ user.email }}</p>
-                {% if user.email %}
+                    {% if user.name %}
+                        <p class="form_name">{{ user.name }}</p>
+                    {% else %}    
+                        <p class="form_name">Имя</p>
+                    {% endif %}
+                <br>
+                <p>
+                    <p class="form_email_label">Email</p>
                     <p class="form_email">{{ user.email }}</p>
-                {% else %}    
-                    <p class="form_email">Email</p>
-                {% endif %}
-            <br>
-            <p>
-                <p class="form_telephone_label">Телефон</p>
-                <p class="form_telephone">{{ user.telephone }}</p>
-                {% if user.telephone %}
+                    {% if user.email %}
+                        <p class="form_email">{{ user.email }}</p>
+                    {% else %}    
+                        <p class="form_email">Email</p>
+                    {% endif %}
+                <br>
+                <p>
+                    <p class="form_telephone_label">Телефон</p>
                     <p class="form_telephone">{{ user.telephone }}</p>
-                {% else %}    
-                    <p class="form_telephone">Телефон</p>
-                {% endif %}
-            <br>
-            <p>
-                <p class="form_age_label">Возраст</p>
-                <p class="form_age">{{ user.age }}</p>
-                {% if user.age %}
+                    {% if user.telephone %}
+                        <p class="form_telephone">{{ user.telephone }}</p>
+                    {% else %}    
+                        <p class="form_telephone">Телефон</p>
+                    {% endif %}
+                <br>
+                <p>
+                    <p class="form_age_label">Возраст</p>
                     <p class="form_age">{{ user.age }}</p>
-                {% else %}    
-                    <p class="form_age">Возраст</p>
-                {% endif %}
-            <br>
-            <p>
-                <p class="form_address_label">Адрес доставки</p>
-                <p class="form_address">{{ user.address }}</p>
-                {% if user.age %}
+                    {% if user.age %}
+                        <p class="form_age">{{ user.age }}</p>
+                    {% else %}    
+                        <p class="form_age">Возраст</p>
+                    {% endif %}
+                <br>
+                <p>
+                    <p class="form_address_label">Адрес доставки</p>
                     <p class="form_address">{{ user.address }}</p>
-                {% else %}    
-                    <p class="form_address">Адресс доставки</p>
-                {% endif %}
-            <br>
-            <a href="{{ url_for('save_form_account', username=user.username) }}" id="change_profile">Изменить</a>
-    </div>
+                    {% if user.age %}
+                        <p class="form_address">{{ user.address }}</p>
+                    {% else %}    
+                        <p class="form_address">Адресс доставки</p>
+                    {% endif %}
+                <br>
+                <a href="{{ url_for('save_form_account', username=user.username) }}" id="change_profile">Изменить</a>
+        </div> 
+    </div>      
 </body>
 </html>
 

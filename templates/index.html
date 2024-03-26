@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ title }}{% endblock %}</title>
+    <link type="text/css" href="{{ url_for('static', filename='css/index.css')}}" rel="stylesheet" />
+    <title>Главная</title>
 </head>
 <body>
     <h1>ГЛАВНАЯ СТРАНИЦА ПРОЕКТА</h1>
-    <h2>{{ title }} </h2>
-</body>
+    <a href="{{ url_for('login') }}" id="login">Войти</a></body>
 </html>
 

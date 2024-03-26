@@ -1,10 +1,12 @@
-from flask import Flask, render_template, url_for, request, flash, session, redirect, abort
+from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, make_response
 from models import db, User, Products, Order
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword, AccountRecoveryForm, UserProfile
 from passw_recovery import send_email
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
+import os
+
 
 
 app = Flask(__name__)
@@ -13,6 +15,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 db.init_app(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+UPLOAD_FOLDER = 'static/img/avatar/'
+MAX_CONTENT_LENGTH = 1024 * 1024 * 2
 
 
 
@@ -76,8 +80,42 @@ def login():
 @login_required
 def user_profile(username): 
     form = UserProfile()
-    user = current_user
     return render_template('user_profile.html', form=form, user=current_user)
+
+
+@app.route('/userava/')
+@login_required   
+def userava():
+    img = User.getAvatar(current_user)     
+    if not img:
+        return ''   
+    
+    h = make_response(img)
+    h.headers['Content-Type'] = 'image/png'
+    return h           
+
+
+
+@app.route('/upload/', methods=['GET', 'POST'])
+@login_required 
+def upload():
+    user = User().query.filter_by(username=current_user.username).first()
+    if request.method == 'POST':
+        file = request.files['file']
+        if file and current_user.verifyExt(file.filename):
+            try:
+                img = file.read()
+                res = current_user.updateUserAvatar(img, current_user.get_id())
+                if not res:
+                    flash('Ошибка обновления автара', category='error')
+                    return redirect(url_for('user_profile',username=current_user.username))
+                flash('Аватар обновлен', category='success')
+            except FileNotFoundError as e:
+                flash('Ошибка чтения файла', category='error')  
+        else:
+            flash('Ошибка обновления аватара', category='error')          
+    return redirect(url_for('user_profile', username=current_user.username))
+
 
 
 @app.route('/user_profile/<username>/change_password/', methods=['GET', 'POST'])

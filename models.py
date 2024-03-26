@@ -2,6 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash,  check_password_hash
 from flask_login import LoginManager, UserMixin
+from flask import url_for
+import sqlite3
+
 
 
 db = SQLAlchemy()
@@ -18,6 +21,7 @@ class User(db.Model, UserMixin):
     age = db.Column(db.Integer, nullable=True)
     telephone = db.Column(db.String(20), nullable=True)
     address = db.Column(db.String(100), nullable=True)
+    avatar = db.Column(db.LargeBinary)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_on = db.Column(db.DateTime(), default=datetime.now, onupdate=datetime.now)
     is_active = db.Column(db.Boolean, default=True)   
@@ -37,9 +41,43 @@ class User(db.Model, UserMixin):
     def is_authenticated(self):
         return True
     
+    def verifyExt(self, filename):
+        ALLOWED_EXTESIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+        ext = filename.rsplit('.', 1)[1].lower()
+        if ext in ALLOWED_EXTESIONS:
+            return True
+        return False
+    
+
+    def updateUserAvatar(self, avatar, user_id):
+        if not avatar:
+            return False
+        try:
+            binary = sqlite3.Binary(avatar)
+            self.avatar = binary
+            db.session.commit()
+        except sqlite3.Error as e:
+            print('Ошибка обновления аватара в БД: ' + str(e))  
+            return False
+        return True  
+
+    
+    def getAvatar(self):
+        img = None
+        if not self.avatar:
+            try:
+                with open(url_for('static', filename='img/avatar/avatarka.png'), "rb") as f:
+                    img = f.read()
+            except FileNotFoundError as e:
+                print('Не найден аватрка по умолчанию: ' + str(e))
+        else:
+            img = self.avatar 
+        return img  
+
     def set_password(self, password):
 	    self.password = generate_password_hash(password)
     
+      
 
 
 class Products(db.Model):

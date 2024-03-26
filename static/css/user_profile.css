@@ -2,6 +2,7 @@ body {
     background-image: url("https://mobimg.b-cdn.net/v3/fetch/d0/d0e45034fed282d858254cf36879fa14.jpeg?w=1470&r=0.5625");
 }
 
+
 .one_part{
     float:left;
     position: relative;
@@ -71,19 +72,19 @@ body {
 
 #password_change {
     position: absolute;
-        top: 15px;
-        left: 40px;
-        width: 150px;
-        height: 10px;
-        text-align: center;
-        color: white;
-        background-color: rgb(74, 154, 74);
-        text-decoration: none; /* убирать подчёркивание у ссылок */
-        user-select: none; /* убирать выделение текста */
-        border: 2px solid green; /* фон кнопки */
-        border-radius: 10px;
-        padding: .7em 1.5em; /* отступ от текста */
-        outline: none; /* убирать контур в Mozilla */
+    top: 15px;
+    left: 40px;
+    width: 150px;
+    height: 10px;
+    text-align: center;
+    color: white;
+    background-color: rgb(74, 154, 74);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid green; /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
 }
 
 
@@ -138,6 +139,23 @@ body {
         padding: .7em 1.5em; /* отступ от текста */
         outline: none; /* убирать контур в Mozilla */
 }
+
+#upload_form {
+    position: absolute;
+    top: 220px;
+    left: 40px;
+    
+}
+
+.profile-ava {
+    width: 250px;
+    text-align: center;
+    overflow: hidden; 
+    background: #eee;
+    padding: 10px;
+}
+
+.profile-ava img {max-width: 200px; height: 200px;}
 
 
 .two_part {
@@ -376,6 +394,18 @@ body {
     text-align: center;
 }
 
+.flash_upload {
+    position: relative;
+    text-align: center;
+    top: 700px;
+    left: 50px;
+    width: 300px;
+    height: 50px;
+    border-radius: 8px;
+    border: green;
+    text-align: center;
+}
+
 
 .flash.success {
 	border: 1px solid #21DB56;
@@ -386,6 +416,15 @@ body {
 	background: #FF9C9C;
 }
 
+
+.flash_upload.success {
+	border: 1px solid #21DB56;
+	background: #AEFFC5;
+}
+.flash_upload.error {
+	border: 1px solid #FF4343;
+	background: #FF9C9C;
+}
 
 #orders:hover, #basket:hover, #main_page:hover, #change:hover, #password_change:hover, #delete_profile:hover, #exit_profile:hover, .form_submit:hover{ background: rgb(126, 218, 158); } /* при наведении курсора мышки
 
