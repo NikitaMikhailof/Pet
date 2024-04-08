@@ -2,7 +2,8 @@ from flask import Flask, render_template, url_for, request, flash, session, redi
 from models import db, User, Products, Order
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword, AccountRecoveryForm, UserProfile
+from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword
+from forms import AccountRecoveryForm, UserProfile, Basket
 from passw_recovery import send_email
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 import os
@@ -25,10 +26,18 @@ def load_user(user_id):
     return db.session.query(User).get(user_id)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html') 
+    form = Basket()
+    products = Products().query.all()
+    return render_template('index.html', products=products, form=form) 
 
+
+# @app.route('/user_profile/<username>/basket/', methods=['GET', 'POST'])
+# @login_required
+# def basket(username): 
+#     form = Basket()
+#     return render_template('user_profile.html', form=form, user=current_user)
 
  
 @app.route('/registration/', methods=['POST', 'GET'])
@@ -39,8 +48,7 @@ def registration():
             email = form_registration.email.data
             user_name = form_registration.username.data
             hash = generate_password_hash(form_registration.password.data)
-            u = User()
-            user = u.query.filter_by(username=user_name).first()
+            user = User().query.filter_by(username=user_name).first()
             try:
                 if user: 
                     flash('Пользователь с таким логином уже существует, придумайте новый', category='error')  

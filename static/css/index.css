@@ -8,49 +8,18 @@ body {
     left: 30px;
     width: 1300px;
     height: 70px;
-    border: 2px solid rgb(250, 254, 250); /* фон кнопки */
+    background-color: white;
     border-radius: 15px;
+    background-image: url("../img/index_page/header.jpg");
+    background-size: 50%, cover;
 }
-
-.footer {
-    position: absolute;
-    bottom: 10px;
-    left: 30px;
-    width: 1300px;
-    height: 70px;
-    border: 2px solid rgb(250, 254, 250); /* фон кнопки */
-    border-radius: 15px;
-}
-
-#footer .social-links {
-    margin: 0 0 40px 0;
-  }
-  
-  #footer .social-links a {
-    font-size: 18px;
-    display: inline-block;
-    background: #46423b;
-    color: #fff;
-    line-height: 1;
-    padding: 8px 0;
-    margin-right: 4px;
-    border-radius: 50%;
-    text-align: center;
-    width: 36px;
-    height: 36px;
-    transition: 0.3s;
-  }
-
-  #footer .social-links a:hover {
-    background: #ffb03b;
-  }
 
 .info {
     position: absolute;
     top: 0px;
     text-align: left;
     font-size: 15px;
-    color: aliceblue;
+    color:black;
     left: 15px;
     width: 300px;
     height: 50px;
@@ -61,18 +30,18 @@ body {
     top: 0px;
     text-align: left;
     font-size: 15px;
-    color: aliceblue;
+    color:black;
     left: 230px;
     width: 300px;
     height: 50px;
 }
 
 #name_restoran {
-    position: fixed;
-    top:5px;
+    position: absolute;
+    top:-45px;
     text-align: center;
     font-size: 50px;
-    color: rgb(240, 193, 6);
+    color: rgb(235, 120, 5);
     left: 550px;
     width: 300px;
     height: 20px;
@@ -116,7 +85,409 @@ body {
     outline: none;  /*убирать контур в Mozilla */
 }
 
+.Whatsapp {
+    position: absolute;
+    bottom: 10px;
+    right: 155px;
+    width: 60px;
+    height: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(145, 219, 145);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none;  /*убирать контур в Mozilla */
+}
+
+.vk {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    width: 60px;
+    height: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(145, 219, 145);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+
+#product_name {
+    text-align: center;
+    font-size: 17px;
+}
+
+#product_description {
+    position: absolute;
+    top: 30px;
+    text-align: center;
+    font-size: 13px;
+}
+
+
+.product_1 {
+    position: absolute;
+    top: 250px;
+    left: 80px;
+    width: 350px;
+    height: 350px;
+    background-color: rgb(242, 239, 235);
+    border-radius: 30px;
+}
+
+#product_1_foto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 330px;
+    height: 200px;
+    border-radius: 20px;
+    background-image: url("../img/menu/ветчина\ с\ шампиньонами.png");
+    background-size: 100%, cover;
+}
 
 
 
-#login:hover, #basket:hover { background: rgb(86, 192, 123); } /* при наведении курсора мышки
+#product_1_description {
+    position: absolute;
+    top: 220px;
+    left: 10px;
+    width: 330px;
+    height: 120px;
+    background-color: rgb(230, 197, 99);
+    border-radius: 20px;
+    
+}
+
+.product_2 {
+    position: absolute;
+    top: 250px;
+    left: 500px;
+    width: 350px;
+    height: 350px;
+    background-color: rgb(242, 239, 235);
+    border-radius: 30px;
+}
+
+#product_2_foto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 330px;
+    height: 200px;
+    border-radius: 20px;
+    background-image: url("../img/menu/дьявол.jpg");
+    background-size: 100%, cover;
+}
+
+#product_2_description {
+    position: absolute;
+    top: 220px;
+    left: 10px;
+    width: 330px;
+    height: 120px;
+    background-color: rgb(230, 197, 99);
+    border-radius: 20px;
+}
+
+.product_3 {
+    position: absolute;
+    top: 250px;
+    right: 200px;
+    width: 350px;
+    height: 350px;
+    background-color: rgb(242, 239, 235);
+    border-radius: 30px;
+}
+
+#product_3_foto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 330px;
+    height: 200px;
+    border-radius: 20px;
+    background-image: url("../img/menu/капризная.jpg");
+    background-size: 100%, cover;
+}
+
+#product_3_description {
+    position: absolute;
+    top: 220px;
+    left: 10px;
+    width: 330px;
+    height: 120px;
+    background-color: rgb(230, 197, 99);
+    border-radius: 20px;
+}
+
+.product_4 {
+    position: absolute;
+    top: 660px;
+    left: 80px;
+    width: 350px;
+    height: 350px;
+    background-color: rgb(242, 239, 235);
+    border-radius: 30px;
+}
+
+#product_4_foto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 330px;
+    height: 200px;
+    border-radius: 20px;
+    background-image: url("../img/menu/маргарита.jpg");
+    background-size: 100%, cover;
+    
+}
+
+#product_4_description {
+    position: absolute;
+    top: 220px;
+    left: 10px;
+    width: 330px;
+    height: 120px;
+    background-color: rgb(230, 197, 99);
+    border-radius: 20px;
+}
+
+.product_5 {
+    position: absolute;
+    top: 660px;
+    left: 500px;
+    width: 350px;
+    height: 350px;
+    background-color: rgb(242, 239, 235);
+    border-radius: 30px;
+}
+
+#product_5_foto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 330px;
+    height: 200px;
+    border-radius: 20px;
+    background-image: url("../img/menu/морская.jpg");
+    background-size: 100%, cover;
+}
+
+#product_5_description {
+    position: absolute;
+    top: 220px;
+    left: 10px;
+    width: 330px;
+    height: 120px;
+    background-color: rgb(230, 197, 99);
+    border-radius: 20px;
+}
+
+.product_6 {
+    position: absolute;
+    top: 660px;
+    right: 200px;
+    width: 350px;
+    height: 350px;
+    background-color: rgb(242, 239, 235);
+    border-radius: 30px;
+}
+
+#product_6_foto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 330px;
+    height: 200px;
+    border-radius: 20px;
+    background-image: url("../img/menu/римская.jpg");
+    background-size: 100%, cover;
+}
+
+#product_6_description {
+    position: absolute;
+    top: 220px;
+    left: 10px;
+    width: 330px;
+    height: 120px;
+    background-color: rgb(230, 197, 99);
+    border-radius: 20px;
+}
+
+.product_7 {
+    position: absolute;
+    top: 1070px;
+    left: 80px;
+    width: 350px;
+    height: 350px;
+    background-color: rgb(242, 239, 235);
+    border-radius: 30px;
+}
+
+#product_7_foto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 330px;
+    height: 200px;
+    border-radius: 20px;
+    background-image: url("../img/menu/с\ салями.jpg");
+    background-size: 100%, cover;
+}
+
+#product_7_description {
+    position: absolute;
+    top: 220px;
+    left: 10px;
+    width: 330px;
+    height: 120px;
+    background-color: rgb(230, 197, 99);
+    border-radius: 20px;
+}
+
+.product_8 {
+    position: absolute;
+    top: 1070px;
+    left: 500px;
+    width: 350px;
+    height: 350px;
+    background-color: rgb(242, 239, 235);
+    border-radius: 30px;
+}
+
+#product_8_foto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 330px;
+    height: 200px;
+    border-radius: 20px;
+    background-image: url("../img/menu/тунец\ с\ луком.jpg");
+    background-size: 100%, cover;
+}
+
+#product_8_description {
+    position: absolute;
+    top: 220px;
+    left: 10px;
+    width: 330px;
+    height: 120px;
+    background-color: rgb(230, 197, 99);
+    border-radius: 20px;
+}
+
+.product_9 {
+    position: absolute;
+    top: 1070px;
+    right: 200px;
+    width: 350px;
+    height: 350px;
+    background-color: rgb(242, 239, 235);
+    border-radius: 30px;
+}
+
+#product_9_foto {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 330px;
+    height: 200px;
+    border-radius: 20px;
+    background-image: url("../img/menu/четыре\ сыра.jpg");
+    background-size: 100%, cover;
+}
+
+#product_9_description {
+    position: absolute;
+    top: 220px;
+    left: 10px;
+    width: 330px;
+    height: 120px;
+    background-color: rgb(230, 197, 99);
+    border-radius: 20px;
+}
+
+.form {
+    position: absolute;
+    top: 90px;
+    width: 330px;
+    height: 120px;
+}
+
+.form_submit {
+    position: absolute;
+    top: 0px;
+    left: 40px;
+    width: 100px;
+    height: 25px;
+    background-color: rgb(145, 219, 145);
+    border: 2px solid rgb(142, 215, 142); 
+    border-radius: 10px;
+    outline: none;
+}
+
+.form_data {
+    position: absolute;
+    right: 50px;
+    width: 70px;
+    height: 25px;
+}
+
+
+.footer {
+    position:absolute;
+    top: 1550px;
+    left: 30px;
+    width: 1300px;
+    height: 70px;
+    background-color: white;
+    border-radius: 15px;
+    background-image: url("../img/index_page/header.jpg");
+    background-size: 50%, cover;
+} 
+
+.footer_info {
+    position: absolute;
+    bottom: 40px;
+    text-align: left;
+    font-size: 20px;
+    color:black;
+    left: 20px;
+    width: 300px;
+    height: 20px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+  }
+   
+  .social-icons a {
+    margin: 0 10px;
+  }
+   
+  .social-icons img {
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s;
+  }
+   
+  .social-icons a:hover img {
+    transform: scale(1.2);
+  }
+
+
+
+
+
+#login:hover, #basket:hover, .Whatsapp:hover, .vk:hover, .form_submit:hover { background: rgb(86, 192, 123); } /* при наведении курсора мышки

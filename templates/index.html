@@ -6,7 +6,7 @@
     <link type="text/css" href="{{ url_for('static', filename='css/index.css')}}" rel="stylesheet" />
     <title>Главная</title>
 </head>
-<body>
+<header>
     <div class="header">
         <a href="{{ url_for('login') }}" id="login">Войти</a>
         <a href="{{ url_for('login') }}" id="basket">Корзина</a>
@@ -20,12 +20,157 @@
         </div>
         <p id="name_restoran">Modernissimo</p>
     </div>
+</header>
+<body>
+   <div class="product_1">
+        <div id="product_1_foto"></div>
+        <div id="product_1_description">
+            {% for product in products %}
+            {% if product.product_name == 'ветчина с шампиньонами' %}
+                <p id="product_name">Пицца {{ product.product_name }}</p>
+                <p id="product_description">{{ product.descriptions }} {{ product.price }} руб</p>
+            {% endif %}    
+            {% endfor %}
+            <form class="form" action="" method="post">
+                {{ form.count(class="form_data") }}
+                {{ form.submit(class="form_submit") }}
+            </form>      
+        </div>
+   </div> 
+   <div class="product_2">
+        <div id="product_2_foto"></div>
+        <div id="product_2_description">
+            {% for product in products %}
+            {% if product.product_name == 'дьявол' %}
+                <p id="product_name">Пицца {{ product.product_name }}</p>
+                <p id="product_description">{{ product.descriptions }} {{ product.price }} руб</p>
+            {% endif %}    
+            {% endfor %}
+            <form class="form" action="" method="post">
+                {{ form.count(class="form_data") }}
+                {{ form.submit(class="form_submit") }}
+            </form> 
+        </div>
+   </div> 
+   <div class="product_3">
+        <div id="product_3_foto"></div>
+        <div id="product_3_description">
+            {% for product in products %}
+            {% if product.product_name == 'капризная' %}
+                <p id="product_name">Пицца {{ product.product_name }}</p>
+                <p id="product_description">{{ product.descriptions }} {{ product.price }} руб</p>
+            {% endif %}    
+            {% endfor %}
+            <form class="form" action="" method="post">
+                {{ form.count(class="form_data") }}
+                {{ form.submit(class="form_submit") }}
+            </form> 
+        </div>
+   </div>
+   <div class="product_4">
+        <div id="product_4_foto"></div>
+        <div id="product_4_description">
+            {% for product in products %}
+            {% if product.product_name == 'маргарита' %}
+                <p id="product_name">Пицца {{ product.product_name }}</p>
+                <p id="product_description">{{ product.descriptions }} {{ product.price }} руб</p>
+            {% endif %}    
+            {% endfor %}
+            <form class="form" action="" method="post">
+                {{ form.count(class="form_data") }}
+                {{ form.submit(class="form_submit") }}
+            </form> 
+        </div>
+   </div>
+   <div class="product_5">
+        <div id="product_5_foto"></div>
+        <div id="product_5_description">
+            {% for product in products %}
+            {% if product.product_name == 'морская' %}
+                <p id="product_name">Пицца {{ product.product_name }}</p>
+                <p id="product_description">{{ product.descriptions }} {{ product.price }} руб</p>
+            {% endif %}    
+            {% endfor %}
+            <form class="form" action="" method="post">
+                {{ form.count(class="form_data") }}
+                {{ form.submit(class="form_submit") }}
+            </form> 
+        </div>
+   </div>
+   <div class="product_6">
+        <div id="product_6_foto"></div>
+        <div id="product_6_description">
+            {% for product in products %}
+            {% if product.product_name == 'римская' %}
+                <p id="product_name">Пицца {{ product.product_name }}</p>
+                <p id="product_description">{{ product.descriptions }} {{ product.price }} руб</p>
+            {% endif %}    
+            {% endfor %}
+            <form class="form" action="" method="post">
+                {{ form.count(class="form_data") }}
+                {{ form.submit(class="form_submit") }}
+            </form> 
+        </div>
+   </div>
+   <div class="product_7">
+        <div id="product_7_foto"></div>
+        <div id="product_7_description">
+            {% for product in products %}
+            {% if product.product_name == 'с салями' %}
+                <p id="product_name">Пицца {{ product.product_name }}</p>
+                <p id="product_description">{{ product.descriptions }} {{ product.price }} руб</p>
+            {% endif %}    
+            {% endfor %}
+            <form class="form" action="" method="post">
+                {{ form.count(class="form_data") }}
+                {{ form.submit(class="form_submit") }}
+            </form> 
+        </div>
+   </div>
+   <div class="product_8">
+        <div id="product_8_foto"></div>
+        <div id="product_8_description">
+            {% for product in products %}
+            {% if product.product_name == 'тунец с луком' %}
+                <p id="product_name">Пицца {{ product.product_name }}</p>
+                <p id="product_description">{{ product.descriptions }} {{ product.price }} руб</p> 
+            {% endif %}    
+            {% endfor %}
+            <form class="form" action="" method="post">
+                {{ form.count(class="form_data") }}
+                {{ form.submit(class="form_submit") }}
+            </form> 
+        </div>
+   </div>
+   <div class="product_9">
+        <div id="product_9_foto"></div>
+        <div id="product_9_description">
+            {% for product in products %}
+            {% if product.product_name == 'четыре сыра' %}
+                <p id="product_name">Пицца {{ product.product_name }}</p>
+                <p id="product_description">{{ product.descriptions }} {{ product.price }} руб</p> 
+            {% endif %}    
+            {% endfor %}
+            <form class="form" action="" method="post">
+                {{ form.count(class="form_data") }}
+                {{ form.submit(class="form_submit") }}
+            </form> 
+        </div>
+   </div>
 </body>
 <footer class="footer">
-    <div class="social-links">
-        <a href="https://vk.com/modernissimodolcevita" class="vk">Вконтакте</a>
-        <a href="https://wa.me/+79600959955" class="Whatsapp">Whatsapp</a>
+    <div class="footer_info">
+        <p>©️ 2024</p>
+    </div>
+    <div class="social-icons">
+        <a href="https://wa.me/+79600959955" target="_blank">
+          <img src="static/img/icons/icons8-whatsapp.svg" alt="Whatsapp Icon">
+        </a>
+        <a href="https://vk.com/modernissimodolcevita" target="_blank">
+          <img src="static/img/icons/VK.svg" alt="VK Icon">
+        </a>
     </div>
 </footer>
 </html>
+
 

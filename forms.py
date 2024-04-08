@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, NumberRange, InputRequired
 
 
@@ -40,6 +40,22 @@ class UserProfile(FlaskForm):
     address = StringField('Адрес доставки', validators=[InputRequired(), Length(max=100)])
     submit = SubmitField('Сохранить')
 
+
+COUNT_PRODUCTS = [('1', 1),
+                  ('2', 2),
+                  ('3', 3),
+                  ('4', 4),
+                  ('5', 5),
+                  ('6', 6),
+                  ('7', 7),
+                  ('8', 8),
+                  ('9', 9),
+                  ('10', 10),
+                  ]
+
+class Basket(FlaskForm):
+    count = SelectField(choices=COUNT_PRODUCTS)
+    submit = SubmitField('В корзину')
 
 
 class AccountRecoveryForm(PasswordRecoveryForm):   
