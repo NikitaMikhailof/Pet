@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{{ url_for('static', filename='css/index.css')}}" rel="stylesheet" />
+    <title>Корзина пользователя</title>
+</head>
+<header>
+    <div class="header">
+        <a href="{{ url_for('user_profile', username=username) }}" id="login">Профиль</a>
+        <a href="{{ url_for('index') }}" id="basket">Главная</a>
+        <p id="name_restoran">Корзина</p>
+    </div>
+</header>
+<body>
+    <br><br>
+    {% for basket in contents_basket %}
+        <div class="content_basket">
+            <p> Наименование: пицца {{ basket.product_title }}</p>
+            <p> Количество: {{ basket.quantity }} шт</p>
+            <p> Цена: {{ basket.price }} руб</p>
+            <form class="delete_position" action="" method="post">
+                {{ form.hidden_tag() }}
+                {{ form.title(class="form_position_delete", value=basket.product_title) }}
+                {{ form.submit(class="form_position_delete_submit") }}
+            </form>
+        </div>
+        <br>
+    {% endfor %}
+    <br><br>
+    <div class="place_an_order">
+        <a href="{{ url_for('index') }}" id="button_order">Оформить заказ</a>
+        <a href="{{ url_for('user_basket') }}" id="button_update">Обновить</a>
+        <p id="count_position"> Позиций в заказе: {{ count_position }} шт</p>
+        <p id="total_price"> Итоговая цена: {{ total }} руб</p>
+    </div> 
+</body>
+</html>

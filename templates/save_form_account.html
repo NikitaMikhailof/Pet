@@ -14,8 +14,7 @@
                 <p>
                     {{ form.name.label(class="form_name_label") }}
                     {% if user.name %}
-                        <p id="user_name">{{ user.name }}</p>
-                        {{ form.name(class="form_name", placeholder=user.name) }}
+                        {{ form.name(class="form_name", value=user.name) }}
                     {% else %}    
                         {{ form.name(class="form_name", placeholder='Введите имя') }}
                     {% endif %}
@@ -24,8 +23,7 @@
                     {% endfor %}
                 <p>
                     {{ form.email.label(class="form_email_label") }}
-                        <p id="user_email">{{ user.email }}</p>
-                    {{ form.email(class="form_email", placeholder=user.email) }}
+                    {{ form.email(class="form_email", value=user.email) }}
                     {% for error in form.email.errors %}
                         {{ error }}
                     {% endfor %}
@@ -33,8 +31,7 @@
                 <p>
                     {{ form.telephone.label(class="form_telephone_label") }}
                     {% if user.telephone %}
-                        <p id="user_telephone">{{ user.telephone }}</p>
-                        {{ form.telephone(class="form_telephone", placeholder=user.telephone) }}
+                        {{ form.telephone(class="form_telephone", value=user.telephone) }}
                     {% else %}    
                         {{ form.telephone(class="form_telephone", placeholder='Введите телефон') }}
                     {% endif %}
@@ -45,8 +42,7 @@
                 <p>
                     {{ form.age.label(class="form_age_label") }}
                     {% if user.age %}
-                        <p id="user_age">{{ user.age }}</p>
-                        {{ form.age(class="form_age", placeholder=user.age) }}
+                        {{ form.age(class="form_age", value=user.age) }}
                     {% else %}    
                         {{ form.age(class="form_age", placeholder='Введите возраст') }}
                     {% endif %}
@@ -56,18 +52,8 @@
                 <br>
                 <p>
                     {{ form.address.label(class="form_address_label") }}
-                    {% if user.address %}
-                        {% if user.address|length > 40 %}
-                        <p id="user_address">
-                            {{ user.address[:40] }}<br>
-                            {{ user.address[40:] }}
-                        </p>
-                        {% else %}
-                        <p id="user_address">
-                            {{ user.address}}
-                        </p>
-                        {% endif %}    
-                        {{ form.address(class="form_address", placeholder=user.address) }}
+                    {% if user.address %}   
+                        {{ form.address(class="form_address", value=user.address) }}
                     {% else %}    
                         {{ form.address(class="form_address", placeholder='Введите адрес (город, улица, дом, кв.)') }}
                     {% endif %}

@@ -25,7 +25,7 @@
         <div class="two_part">
             <div id="header_two">
                 <a href="{{ url_for('orders', username=user.username) }}" id="orders">Мои заказы</a>
-                <a href="basket.html" id="basket">Корзина</a>
+                <a href="{{ url_for('user_basket', username=user.username ) }}" id="basket">Корзина</a>
                 <a href="{{ url_for('index') }}" id="main_page">Главная</a>
             </div>
             <div class="account">  

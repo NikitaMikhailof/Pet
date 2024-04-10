@@ -1,9 +1,9 @@
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, make_response
-from models import db, User, Products, Order
+from models import db, User, Products, Order, UserBasket
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword
-from forms import AccountRecoveryForm, UserProfile, Basket
+from forms import AccountRecoveryForm, UserProfile, Basket, BasketPositionDelete
 from passw_recovery import send_email
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 import os
@@ -28,16 +28,22 @@ def load_user(user_id):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    form = Basket()
+    form_basket = Basket()
     products = Products().query.all()
-    return render_template('index.html', products=products, form=form) 
-
-
-# @app.route('/user_profile/<username>/basket/', methods=['GET', 'POST'])
-# @login_required
-# def basket(username): 
-#     form = Basket()
-#     return render_template('user_profile.html', form=form, user=current_user)
+    if form_basket.validate_on_submit() and current_user.is_authenticated:
+        title = form_basket.title.data
+        count = form_basket.count.data
+        product = Products.query.filter_by(product_name=title).first() 
+        total_price = int(product.price) * int(count)
+        user = User().query.filter_by(username=current_user.username).first()
+        new_basket = UserBasket(user_id=user.id, 
+                                product_title=product.product_name, 
+                                quantity=count, 
+                                price=total_price)    
+        db.session.add(new_basket)
+        db.session.commit()     
+    return render_template('index.html', products=products, form=form_basket)
+ 
 
  
 @app.route('/registration/', methods=['POST', 'GET'])
@@ -56,14 +62,10 @@ def registration():
                     new_user = User(email=email, username=user_name, password=hash)
                     db.session.add(new_user)
                     db.session.commit()
-
-                    user_basket = Order(user_id=new_user.id)
-                    db.session.add(user_basket)
-                    db.session.commit()  
                     flash('Регистрация прошла успешно', category='success')
                     return redirect(url_for('login'))
             except:
-                    db.session.rollback()
+                     db.session.rollback()
         else:            
             flash('Данные введены не корректно', category='error')
     return  render_template('registration.html', form=form_registration)    
@@ -89,6 +91,36 @@ def login():
 def user_profile(username): 
     form = UserProfile()
     return render_template('user_profile.html', form=form, user=current_user)
+
+
+@app.route('/user_profile/basket/', methods=['GET', 'POST'])
+@login_required
+def user_basket(): 
+    total = 0
+    count_position = 0
+    user = User().query.filter_by(username=current_user.username).first()
+    contents_basket = UserBasket().query.filter_by(user_id=user.id)
+    for elem in contents_basket:
+        total += elem.price
+        count_position += elem.quantity
+    form_delete_position = BasketPositionDelete()
+    if form_delete_position.validate_on_submit():
+        title = form_delete_position.title.data
+        for position in contents_basket:
+            print(position)
+            if position.product_title == title:
+                remove_record = position
+                db.session.delete(remove_record)
+                db.session.commit()
+    
+
+
+    return render_template('user_basket.html',
+                            contents_basket=contents_basket,
+                            total=total,
+                            count_position=count_position,
+                            username=current_user.username, 
+                            form=form_delete_position)
 
 
 @app.route('/userava/')
@@ -256,25 +288,31 @@ def pageNotFount(error):
 # @app.cli.command("init-db")
 # def init_db():
 #     db.create_all()
-#     print('OK')
+#     print('OK')cls
+
 
 # user = User_profile.query.filter_by(username='bad1991').first()
 # user.username = 'Mark'
 
 # @app.cli.command("add")
 # def add():
-#     user = User(username='bad1992', 
-#                 password='bad1992', 
-#                 email='mikhailoffnikita2016@yandex.ru', 
-#                 name='Никита', 
-#                 age=31,
-#                 telephone='+79821372456',
-#                 address = 'город Волжск ул. Дружбы д.13')
+#     user = UserBasket(user_id=1, 
+#                 product_id=2, 
+#                 quantity=3, 
+#                 price=4, 
+#                 )
     
 #     db.session.add(user)
 #     db.session.commit()
-#     print(f'{user.username} add in DB!')
+#     print(f'{user.id} add in DB!')
 
+# @app.cli.command("add")
+# def add():
+#     for i in range(1, 55):
+#         new_basket = UserBasket.query.get(i)
+#         db.session.delete(new_basket)
+#         db.session.commit()           
+#     print(f' Deleted in DB!')
 
 # @app.cli.command("edit-john")
 # def edit_user():

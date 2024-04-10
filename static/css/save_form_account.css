@@ -148,8 +148,8 @@ body {
 }    
 
 #link_save_account {
-    position: relative;
-    top: 130px;
+    position: absolute;
+    bottom: 20px;
     left: 220px;
 }
 

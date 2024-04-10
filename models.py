@@ -48,7 +48,6 @@ class User(db.Model, UserMixin):
             return True
         return False
     
-
     def updateUserAvatar(self, avatar, user_id):
         if not avatar:
             return False
@@ -60,7 +59,6 @@ class User(db.Model, UserMixin):
             print('Ошибка обновления аватара в БД: ' + str(e))  
             return False
         return True  
-
     
     def getAvatar(self):
         img = None
@@ -78,8 +76,6 @@ class User(db.Model, UserMixin):
 	    self.password = generate_password_hash(password)
     
       
-
-
 class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_name = db.Column(db.String(100), unique=True, nullable=False)
@@ -88,13 +84,27 @@ class Products(db.Model):
 
     def __repr__(self):
         return f'Product({self.product_name}, {self.price})'    
+    
+
+class UserBasket(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    product_title = db.Column(db.String(30))
+    quantity = db.Column(db.Integer, default=1)
+    price = db.Column(db.Integer)
+    
+    def __repr__(self):
+        return f'User_basket({self.user_id}, {self.product_title}, {self.price}, {self.quantity}'    
+    
+
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    product_id = db.Column(db.String(100), db.ForeignKey('products.id')) # сделать связь многие ко многим
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id')) # сделать связь многие ко многим
     time_buy = db.Column(db.DateTime, default=None)
-    quantity = db.Column(db.Integer, default=1)
+    quantity = db.Column(db.Integer) 
+    total_price = db.Column(db.Integer) 
     
 
     def __repr__(self):

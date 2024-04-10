@@ -443,6 +443,113 @@ body {
     height: 25px;
 }
 
+.form_title {
+    position: absolute;
+    left: 45px;
+    width: 1px;
+    height: 1px;
+}
+
+.content_basket {
+    position: relative;
+    top: 120px;
+    left: 100px;
+    width: 500px;
+    height: 150px;
+    text-align:center;
+    font-size: 20px;
+    color: rgb(1, 9, 16);
+    border-radius: 10px;
+    background-color: rgb(232, 222, 133);
+}
+
+.place_an_order {
+    position: relative;
+    top: 80px;
+    left: 100px;
+    width: 500px;
+    height: 120px;
+    text-align:center;
+    font-size: 20px;
+    color: rgb(1, 9, 16);
+    border-radius: 10px;
+    background-color: rgb(212, 245, 204);
+    background-image: url("../img/index_page/header.jpg");
+    background-size: 70%, cover;
+}
+
+#button_order {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    width: 120px;
+    height: 22px;
+    text-align: center;
+    font-size: 15px;
+    color: black;
+    background-color: rgb(113, 202, 71);
+    text-decoration: none; 
+    user-select: none; 
+    border-radius: 10px;
+    padding: .7em 1.5em; 
+    outline: none; 
+}
+
+#button_update {
+    position: absolute;
+    top: 70px;
+    left: 15px;
+    width: 120px;
+    height: 22px;
+    text-align: center;
+    font-size: 15px;
+    color: black;
+    background-color: rgb(139, 171, 234);
+    text-decoration: none; 
+    user-select: none; 
+    border-radius: 10px;
+    padding: .7em 1.5em; 
+    outline: none; 
+}
+
+
+#count_position {
+    position: relative;
+    top: 20px;
+    left: 80px;
+    font-size: 25px;
+    font-weight:bold;
+}
+
+#total_price {
+    position: relative;
+    top: 20px;
+    left: 80px;
+    font-size: 25px;
+    font-weight:bold;
+}
+
+.form_position_delete {
+    position: absolute;
+    bottom: 10px;
+    width: 1px;
+    height: 1px;
+    
+}
+
+.form_position_delete_submit{
+    position: absolute;
+    left: 150px;
+    bottom: 10px;
+    width: 200px;
+    height: 25px;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    border-radius: 10px;
+    background-color: rgb(219, 82, 82);
+    
+}
 
 .footer {
     position:absolute;
@@ -489,5 +596,5 @@ body {
 
 
 
-
-#login:hover, #basket:hover, .Whatsapp:hover, .vk:hover, .form_submit:hover { background: rgb(86, 192, 123); } /* при наведении курсора мышки
+#button_update:hover { background: rgb(96, 94, 212); } 
+#login:hover, #basket:hover, .Whatsapp:hover, .vk:hover, .form_submit:hover, #button_order:hover, .form_position_delete_submit:hover { background: rgb(86, 192, 123); } /* при наведении курсора мышки
