@@ -1,0 +1,176 @@
+body {
+    background-image: url("https://mobimg.b-cdn.net/v3/fetch/d0/d0e45034fed282d858254cf36879fa14.jpeg?w=1470&r=0.5625");
+}
+
+
+.header {
+    position: absolute;
+    top: 50px;
+    left: 30px;
+    width: 1300px;
+    height: 70px;
+    background-color: white;
+    border-radius: 15px;
+    background-image: url("../img/index_page/header.jpg");
+    background-size: 50%, cover;
+}
+
+.content_basket {
+    position: absolute;
+    top: 200px;
+    left: 600px;
+    width: 300px;
+    text-align:center;
+    font-size: 20px;
+    color: rgb(1, 9, 16);
+    border-radius: 10px;
+    background-color: rgb(232, 222, 133);
+}
+
+.wrapper{
+    position: relative;
+}
+#separator {
+    position: relative;
+    left:50px;
+    width: 200px;
+    height: 5px;
+    background-color: rgb(198, 154, 9);
+}
+
+.message {
+    position: absolute;
+    top: 550px;
+    left: 600px;
+    width: 300px;
+    height: 200px;
+    background-color: red;
+}
+
+
+#count_position {
+    position: relative;
+    top: 20px;
+    left: 0px;
+    font-size: 20px;
+    font-weight:bold;
+}
+
+#total_price {
+    position: relative;
+    top: 20px;
+    left: 0px;
+    font-size: 20px;
+    font-weight:bold;
+}
+
+
+.form_payment {
+    position: relative;
+    top: -10px;
+    left: 30px;
+    width: 120px;
+    height: 20px;
+    font-size: 15px;
+}
+
+.form_payment_label{
+    position: relative;
+    top: -10px;
+    left: -20px;
+    width: 120px;
+    height: 20px;
+    font-size: 15px;
+}
+
+.form_message {
+    position: relative;
+    top: -5px;
+    left: 0px;
+    width: 250px;
+    height: 60px;
+    font-size: 15px;
+ }
+
+
+ .form_submit {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 150px;
+    height: 40px;
+    background-color: rgb(113, 202, 71);
+    border-radius: 10px;
+    font-size: 15px;
+ }
+
+ #login {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 60px;
+    height: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(145, 219, 145);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+
+
+#basket{
+    position: absolute;
+    top: 10px;
+    right: 155px;
+    width: 60px;
+    height: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(145, 219, 145);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none;  /*убирать контур в Mozilla */
+}
+
+
+#name_order {
+    position: absolute;
+    top:-45px;
+    text-align: center;
+    font-size: 50px;
+    color: rgb(251, 249, 247);
+    left: 550px;
+    width: 300px;
+    height: 20px;
+}
+
+ .flash {
+    position: relative;
+    top: 20px;
+    left: 0px;
+    width: 300px;
+    height: 60px;
+    border-radius: 8px;
+    border: green;
+    text-align: center;
+}
+
+.flash.success {
+	border: 1px solid #21DB56;
+	background: #AEFFC5;
+}
+.flash.error {
+	border: 1px solid #FF4343;
+	background: #FF9C9C;
+}
+
+ .form_submit:hover { background: rgb(86, 192, 123); }

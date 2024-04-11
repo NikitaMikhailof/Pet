@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{{ url_for('static', filename='css/user_orders.css')}}" rel="stylesheet" />
+    <title>Заказы пользователя {{ username }}</title>
+</head>
+<header>
+    <div class="header">
+        <a href="{{ url_for('user_profile', username=username) }}" id="login">Профиль</a>
+        <a href="{{ url_for('index') }}" id="basket">Главная</a>
+        <p id="name_restoran">Мои заказы</p>
+    </div>
+</header>
+<body>
+    <br><br>
+    {% for order in orders %}
+        <div class="content_orders">
+            <p> Время: {{ order.time_buy }}</p>
+            <p> Пицца {{ order.product_id }}</p>
+            <p> Количество: {{ order.quantity }} шт</p>
+            <p> Цена: {{ order.total_price }} руб</p> 
+            <p> Способ оплаты: {{ order.type_payment }}</p> 
+            <p> Сообщение: {{ order.message }} </p>
+        </div>
+        <br><br>
+    {% endfor %}
+</body>
+</html>

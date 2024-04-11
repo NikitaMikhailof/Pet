@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     is_active = db.Column(db.Boolean, default=True)   
 
     def __repr__(self):
-        return f'User({self.username}, {self.email})'
+        return f'User({self.username}, {self.email}, {self.id}, {self.telephone}, {self.address})'
 
     def check_password(self,  password):
         return check_password_hash(self.password, password)
@@ -67,7 +67,7 @@ class User(db.Model, UserMixin):
                 with open(url_for('static', filename='img/avatar/avatarka.png'), "rb") as f:
                     img = f.read()
             except FileNotFoundError as e:
-                print('Не найден аватрка по умолчанию: ' + str(e))
+                print('Не найден аватарка по умолчанию: ' + str(e))
         else:
             img = self.avatar 
         return img  
@@ -102,9 +102,12 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('products.id')) # сделать связь многие ко многим
-    time_buy = db.Column(db.DateTime, default=None)
+    time_buy = db.Column(db.DateTime, default=datetime.utcnow)
     quantity = db.Column(db.Integer) 
     total_price = db.Column(db.Integer) 
+    message = db.Column(db.String(200))
+    type_payment = db.Column(db.String(20))
+
     
 
     def __repr__(self):

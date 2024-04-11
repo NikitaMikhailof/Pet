@@ -11,7 +11,8 @@
         <div class="header">Регистрация</div>
         <div class="inside">
             <form class="form" action="" method="post">
-            {{ form.csrf_token }}
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
             <p>
                 {{ form.email.label(class="form_email_label") }}
                 {{ form.email(class="form_email", placeholder="введите ваш email") }}
@@ -54,6 +55,7 @@
             </p>    
             </form>
             <a id="account_recovery" href="{{ url_for('account_recovery') }}">Восстановить учетную запись</a>
+            <a id="back_" href="{{ url_for('index') }}">Назад</a>
             {% for cat, msg in get_flashed_messages(True) %}
             <div class="flash {{ cat }}">{{ msg }}</div>
             {% endfor %}

@@ -11,7 +11,8 @@
         <div class="header">Авторизация</div>
         <div class="inside">
             <form class="form" action="" method="post">
-            {{ form.csrf_token }}
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
             <p>
                 {{ form.username.label(class="form_username_label") }}
                 {{ form.username(class="form_username", placeholder="введите логин") }}
@@ -39,7 +40,7 @@
             <a id="password_recovery" href="{{ url_for('password_recovery') }}">Забыли пароль?</a>
             <a id="registration" href="{{ url_for('registration') }}">Регистрация</a>
             {% for cat, msg in get_flashed_messages(True) %}
-            <div class="flash {{ cat }}">{{ msg }}</div>
+                <div class="flash {{ cat }}">{{ msg }}</div>
             {% endfor %}
         </div>
     </div>

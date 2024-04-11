@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{{ url_for('static', filename='css/form_order.css')}}" rel="stylesheet" />
+    <title>оформление заказа пользователя {{ user.username }}</title>
+</head>
+<header>
+    <div class="header">
+        <a href="{{ url_for('user_profile', username=user.username) }}" id="login">Профиль</a>
+        <a href="{{ url_for('index') }}" id="basket">Главная</a>
+        <p id="name_order">Форма заказа</p>
+    </div>
+</header>
+<body>
+    <div class="content_basket">
+        {% for position in user_basket %}
+            <p> {{ position.product_title }}</p>
+            <p> Количество: {{ position.quantity }} шт</p>
+            <p> Цена: {{ position.price }} руб</p>
+            <div id="separator"></div>
+        {% endfor %}
+        <div class="place_an_order">
+            <p id="count_position"> Позиций в заказе: {{ count_position }} шт</p>
+            <p id="total_price"> К оплате: {{ total }} руб</p>
+        </div><br>
+        <form class="delete_position" action="" method="post">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            {{ form.type_payment.label(class="form_payment_label") }}
+            {{ form.type_payment(class="form_payment", placeholder="вид оплаты")}}
+            {{ form.message(class="form_message", placeholder="    Хочу дополнительно к заказу") }}
+            {{ form.submit(class="form_submit") }}
+        </form>
+    </div>
+</body>
+</html>
+

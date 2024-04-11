@@ -1,0 +1,79 @@
+body {
+    background-image: url("https://mobimg.b-cdn.net/v3/fetch/d0/d0e45034fed282d858254cf36879fa14.jpeg?w=1470&r=0.5625");
+}
+
+.header {
+    position: absolute;
+    top: 50px;
+    left: 30px;
+    width: 1300px;
+    height: 70px;
+    background-color: white;
+    border-radius: 15px;
+    background-image: url("../img/index_page/header.jpg");
+    background-size: 50%, cover;
+}
+
+#login {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 60px;
+    height: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(145, 219, 145);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+
+
+#basket{
+    position: absolute;
+    top: 10px;
+    right: 155px;
+    width: 60px;
+    height: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(145, 219, 145);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none;  /*убирать контур в Mozilla */
+}
+
+#name_restoran {
+    position: absolute;
+    top:-45px;
+    text-align: center;
+    font-size: 50px;
+    color: rgb(251, 249, 247);
+    left: 550px;
+    width: 300px;
+    height: 20px;
+}
+
+.content_orders {
+    position: relative;
+    top: 120px;
+    left: 100px;
+    width: 400px;
+    text-align:center;
+    font-size: 18px;
+    line-height: 0.8;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    color: rgb(1, 9, 16);
+    border-radius: 10px;
+    background-color: rgb(232, 222, 133);
+}
+

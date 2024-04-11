@@ -13,6 +13,7 @@ body {
     border: 3px solid green;
     border-radius: 20px;
     background-color: rgb(200, 216, 200); 
+
     
 }
 
@@ -144,6 +145,7 @@ body {
     position: absolute;
     top: 220px;
     left: 40px;
+
     
 }
 

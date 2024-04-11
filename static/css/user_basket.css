@@ -1,0 +1,192 @@
+body {
+    background-image: url("https://mobimg.b-cdn.net/v3/fetch/d0/d0e45034fed282d858254cf36879fa14.jpeg?w=1470&r=0.5625");
+}
+
+.header {
+    position: absolute;
+    top: 50px;
+    left: 30px;
+    width: 1300px;
+    height: 70px;
+    background-color: white;
+    border-radius: 15px;
+    background-image: url("../img/index_page/header.jpg");
+    background-size: 50%, cover;
+}
+
+#login {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 60px;
+    height: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(145, 219, 145);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+
+
+#basket{
+    position: absolute;
+    top: 10px;
+    right: 155px;
+    width: 60px;
+    height: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    background-color: rgb(145, 219, 145);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none;  /*убирать контур в Mozilla */
+}
+
+#name_header {
+    position: absolute;
+    top:-45px;
+    text-align: center;
+    font-size: 50px;
+    color: rgb(251, 249, 247);
+    left: 550px;
+    width: 300px;
+    height: 20px;
+}
+
+.content_basket {
+    position: relative;
+    top: 120px;
+    left: 100px;
+    width: 400px;
+    height: 150px;
+    text-align:center;
+    font-size: 17px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    color: rgb(1, 9, 16);
+    border-radius: 10px;
+    background-color: rgb(232, 222, 133);
+}
+
+.form_position_delete {
+    position: absolute;
+    bottom: 10px;
+    width: 1px;
+    height: 1px;
+    
+}
+
+.form_position_delete_submit{
+    position: absolute;
+    left: 100px;
+    bottom: 10px;
+    width: 200px;
+    height: 25px;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    border-radius: 10px;
+    background-color: rgb(219, 82, 82);
+    
+}
+
+.place_an_order {
+    position: relative;
+    top: 80px;
+    left: 100px;
+    width: 500px;
+    height: 120px;
+    text-align:center;
+    font-size: 20px;
+    color: rgb(1, 9, 16);
+    border-radius: 10px;
+    background-color: rgb(212, 245, 204);
+    background-image: url("../img/index_page/header.jpg");
+    background-size: 70%, cover;
+}
+
+#button_order {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    width: 120px;
+    height: 22px;
+    text-align: center;
+    font-size: 15px;
+    color: black;
+    background-color: rgb(113, 202, 71);
+    text-decoration: none; 
+    user-select: none; 
+    border-radius: 10px;
+    padding: .7em 1.5em; 
+    outline: none; 
+}
+
+#button_update {
+    position: absolute;
+    top: 70px;
+    left: 15px;
+    width: 120px;
+    height: 22px;
+    text-align: center;
+    font-size: 15px;
+    color: black;
+    background-color: rgb(139, 171, 234);
+    text-decoration: none; 
+    user-select: none; 
+    border-radius: 10px;
+    padding: .7em 1.5em; 
+    outline: none; 
+}
+
+#count_position {
+    position: relative;
+    top: 20px;
+    left: 80px;
+    font-size: 25px;
+    font-weight:bold;
+}
+
+#total_price {
+    position: relative;
+    top: 20px;
+    left: 80px;
+    font-size: 25px;
+    font-weight:bold;
+}
+
+#info_message {
+    position: relative;
+    top: 20px;
+    left: 0px;
+    font-size: 23px;
+    color: rgb(243, 248, 245);
+    font-weight:bold;
+}
+
+#fill_data {
+    position: absolute;;
+    top: 80px;
+    left: 90px;
+    width: 300px;
+    height: 30px;
+    background-color: rgb(58, 149, 73);
+    color: rgb(238, 241, 244);
+    text-align: center;
+    text-decoration: none;
+      
+}
+
+
+
+#button_update:hover { background: rgb(96, 94, 212); } 
+#login:hover, #basket:hover, #button_order:hover, .form_position_delete_submit:hover, #fill_data:hover { background: rgb(86, 192, 123); }

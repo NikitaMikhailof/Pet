@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" href="{{ url_for('static', filename='css/index.css')}}" rel="stylesheet" />
-    <title>Корзина пользователя</title>
+    <link type="text/css" href="{{ url_for('static', filename='css/user_basket.css')}}" rel="stylesheet" />
+    <title>Корзина пользователя {{ username }}</title>
 </head>
 <header>
     <div class="header">
         <a href="{{ url_for('user_profile', username=username) }}" id="login">Профиль</a>
         <a href="{{ url_for('index') }}" id="basket">Главная</a>
-        <p id="name_restoran">Корзина</p>
+        <p id="name_header">Корзина</p>
     </div>
 </header>
 <body>
@@ -21,6 +21,7 @@
             <p> Количество: {{ basket.quantity }} шт</p>
             <p> Цена: {{ basket.price }} руб</p>
             <form class="delete_position" action="" method="post">
+                {{ form.csrf_token }}
                 {{ form.hidden_tag() }}
                 {{ form.title(class="form_position_delete", value=basket.product_title) }}
                 {{ form.submit(class="form_position_delete_submit") }}
@@ -30,10 +31,19 @@
     {% endfor %}
     <br><br>
     <div class="place_an_order">
-        <a href="{{ url_for('index') }}" id="button_order">Оформить заказ</a>
-        <a href="{{ url_for('user_basket') }}" id="button_update">Обновить</a>
-        <p id="count_position"> Позиций в заказе: {{ count_position }} шт</p>
-        <p id="total_price"> Итоговая цена: {{ total }} руб</p>
+        {% if current_user.address and current_user.telephone %}
+            <a href="{{ url_for('form_order',username=current_user.username) }}" id="button_order">Оформить заказ</a>
+            <a href="{{ url_for('user_basket', username=current_user.username) }}" id="button_update">Обновить</a>
+            <p id="count_position"> Позиций в заказе: {{ count_position }} шт</p>
+            <p id="total_price"> Итоговая цена: {{ total }} руб</p>
+        {% else %}  
+            <p id="info_message">Для оформления заказа укажите телефон и адресс в личном кабинете</p> 
+            <a href="{{ url_for('save_form_account', username=username) }}" id="fill_data">Заполнить данные</a  > 
+        {% endif %}
+        <br>
+        {% for cat, msg in get_flashed_messages(True) %}
+            <div class="flash {{ cat }}">{{ msg }}</div>
+        {% endfor %}
     </div> 
 </body>
 </html>

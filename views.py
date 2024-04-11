@@ -1,9 +1,10 @@
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, make_response
 from models import db, User, Products, Order, UserBasket
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePassword
-from forms import AccountRecoveryForm, UserProfile, Basket, BasketPositionDelete
+from forms import AccountRecoveryForm, UserProfile, Basket, BasketPositionDelete, MessageOrder
 from passw_recovery import send_email
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 import os
@@ -81,7 +82,7 @@ def login():
         if user and user.check_password(form.password.data) and user.is_active == True:
             login_user(user, remember=form.remember.data)
             return redirect(url_for('user_profile', username=current_user.username))
-        flash("Неверный логин / пароль", 'error')
+        flash("Неверный логин / пароль", category='error')
         return redirect(url_for('login'))
     return render_template('login.html', form=form)
             
@@ -93,34 +94,75 @@ def user_profile(username):
     return render_template('user_profile.html', form=form, user=current_user)
 
 
-@app.route('/user_profile/basket/', methods=['GET', 'POST'])
+@app.route('/user_profile//<username>/basket/', methods=['GET', 'POST'])
 @login_required
-def user_basket(): 
+def user_basket(username): 
     total = 0
     count_position = 0
-    user = User().query.filter_by(username=current_user.username).first()
-    contents_basket = UserBasket().query.filter_by(user_id=user.id)
+    contents_basket = UserBasket().query.filter_by(user_id=current_user.id)
+    
     for elem in contents_basket:
         total += elem.price
         count_position += elem.quantity
-    form_delete_position = BasketPositionDelete()
+
+    form_delete_position = BasketPositionDelete() 
+    address = current_user.address
+    telephone = current_user.telephone
+
     if form_delete_position.validate_on_submit():
         title = form_delete_position.title.data
         for position in contents_basket:
-            print(position)
             if position.product_title == title:
                 remove_record = position
                 db.session.delete(remove_record)
-                db.session.commit()
-    
-
-
+                db.session.commit() 
     return render_template('user_basket.html',
                             contents_basket=contents_basket,
                             total=total,
                             count_position=count_position,
                             username=current_user.username, 
                             form=form_delete_position)
+
+@app.route('/user_profile/<username>/form_order/', methods=['GET', 'POST'])
+@login_required
+def form_order(username): 
+    total = 0
+    count_position = 0
+    user_basket = UserBasket().query.filter_by(user_id=current_user.id)
+    for elem in user_basket:
+        total += elem.price
+        count_position += elem.quantity  
+           
+    form_message = MessageOrder() 
+    if form_message.validate_on_submit():
+        type_payment = form_message.type_payment.data
+        message = form_message.message.data
+        for position in user_basket:
+            order = Order(user_id = current_user.id,
+                          product_id = position.product_title,
+                          quantity = position.quantity,
+                          message = message,
+                          total_price = position.price,
+                          type_payment = type_payment )
+    
+            db.session.add(order)
+            db.session.commit()
+            db.session.delete(position)
+            db.session.commit() 
+        return redirect(url_for('user_orders',username=username)) 
+    return render_template('form_order.html',
+                            user=current_user,
+                            user_basket = user_basket,
+                            total=total,
+                            count_position=count_position,
+                            form=form_message)
+
+
+@app.route('/user_profile/<username>/orders/', methods=['GET', 'POST'])
+@login_required
+def user_orders(username): 
+    user_orders = Order.query.filter_by(user_id=current_user.id).order_by(desc(Order.time_buy)) 
+    return render_template('user_orders.html', username=username, orders=user_orders)
 
 
 @app.route('/userava/')
@@ -161,7 +203,6 @@ def upload():
 @app.route('/user_profile/<username>/change_password/', methods=['GET', 'POST'])
 @login_required
 def change_password(username):
-    flag = False
     username = username
     form = СhangePassword()
     if form.validate_on_submit():
@@ -176,7 +217,7 @@ def change_password(username):
             flash('Пароль успешно сохранен', category='success')
         else:  
             flash('Неверный пароль', category='error')
-    return render_template('change_password.html', form=form, username=username, flag=flag)    
+    return render_template('change_password.html', form=form, username=username)    
 
 
 @app.route('/user_profile/<username>/logout/')

@@ -11,6 +11,7 @@
         <div class="change_account">
             <form action="" method="post">   
                 {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
                 <p>
                     {{ form.name.label(class="form_name_label") }}
                     {% if user.name %}

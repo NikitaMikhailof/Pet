@@ -64,5 +64,17 @@ class BasketPositionDelete(FlaskForm):
     submit = SubmitField('Удалить из корзины')
 
 
+TYPE_PAYMENT = [('наличными', 'наличными'),
+                  ('картой', 'картой'),
+                  ('переводом', 'переводом'),
+                  ]
+
+class MessageOrder(FlaskForm):
+    type_payment = SelectField('тип оплаты', choices=TYPE_PAYMENT, default='переводом')
+    message = StringField()
+    submit = SubmitField('Заказать')
+    
+
 class AccountRecoveryForm(PasswordRecoveryForm):   
     pass
+
