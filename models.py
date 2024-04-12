@@ -98,7 +98,6 @@ class Products(db.Model):
 class UserBasket(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    user = db.relationship("User", back_populates="user-basket")
     product_title = db.Column(db.String(30))
     quantity = db.Column(db.Integer, default=1)
     price = db.Column(db.Integer)

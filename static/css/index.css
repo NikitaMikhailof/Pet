@@ -521,4 +521,4 @@ body {
 }
 
 #admin:hover {background: rgb(149, 158, 238);}
-#login:hover, #basket:hover, .Whatsapp:hover, .vk:hover {background: rgb(86, 192, 123); } /* при наведении курсора мышки
+#login:hover, #basket:hover, .Whatsapp:hover, .vk:hover, .form_submit:hover {background: rgb(86, 192, 123); } /* при наведении курсора мышки

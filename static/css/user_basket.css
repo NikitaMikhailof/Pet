@@ -80,14 +80,14 @@ body {
 .form_position_delete {
     position: absolute;
     bottom: 10px;
-    width: 100px;
-    height: 18px;
+    width: 10px;
+    height: 10px;
     
 }
 
 .form_position_delete_submit{
     position: absolute;
-    left: 0px;
+    left: 100px;
     bottom: 10px;
     width: 200px;
     height: 25px;
@@ -219,9 +219,9 @@ body {
     outline: none; /* убирать контур в Mozilla */
 }
 
-.icon {
+#icon {
     position: absolute;
-    top: 0px;
+    top: 30px;
     right: 100px;
     width: 100px;
     height: 100px;
