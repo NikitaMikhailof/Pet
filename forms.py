@@ -60,12 +60,12 @@ COUNT_PRODUCTS = [('1', 1),
 
 class Basket(FlaskForm):
     count = SelectField(choices=COUNT_PRODUCTS, default=1)
-    title = StringField()
+    product_id = IntegerField()
     submit = SubmitField('В корзину')
 
 
 class BasketPositionDelete(FlaskForm):
-    title = StringField()
+    id_product = IntegerField()
     submit = SubmitField('Удалить из корзины')
 
 

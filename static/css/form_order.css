@@ -100,8 +100,8 @@ body {
     left: 0px;
     width: 150px;
     height: 40px;
-    background-color: rgb(113, 202, 71);
-    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    background-color: rgb(62, 218, 122);
+    border: 2px solid rgb(113, 202, 71); /* фон кнопки */
     border-radius: 10px;
     font-size: 15px;
  }

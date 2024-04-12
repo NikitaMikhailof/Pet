@@ -88,4 +88,32 @@ body {
     background-size: 100%, cover;
 }
 
+
+#basket_empty {
+    position: relative;
+    top: 120px;
+    left: 100px;
+    width: 300px;
+    height: 200px;
+    text-align:center;
+    font-size: 25px;
+    line-height: 0.8;
+    padding-top: 40px;
+    padding-bottom: 1px;
+    color: rgb(1, 9, 16);
+    border-radius: 10px;
+    background-color: rgb(232, 222, 133);
+}
+
+#icon {
+    position: absolute;
+    top: 30px;
+    right: 100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background-image: url("../img/icons/basket.png");
+    background-size: 100%, cover;
+}
+
 #login:hover, #basket:hover { background: rgb(39, 200, 95); } 

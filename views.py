@@ -1,5 +1,5 @@
-from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, make_response
-from models import db, User, Products, Order, UserBasket, OrderView
+from flask import Flask, render_template, url_for, request, session, flash, redirect, abort, make_response
+from models import db, User, Products, Order, UserBasket, OrderView, UserView, UserBasketView, ProductsView
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -22,17 +22,44 @@ login_manager.login_view = 'login'
 UPLOAD_FOLDER = 'static/img/avatar/'
 MAX_CONTENT_LENGTH = 1024 * 1024 * 2
 
-admin = Admin()
-admin.init_app(app)
+
+admin = Admin(app)
+# admin.init_app(app)
 
 
-admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Products, db.session))
-admin.add_view(OrderView(Order, db.session))
+# admin.add_view(UserView(User, db.session))
+# admin.add_view(OrderView(Order, db.session))
+# admin.add_view(UserBasketView(UserBasket, db.session))
+# admin.add_view(ProductsView(Products, db.session))
+
+class SecureModelView(ModelView):    
+   def is_accessible(self):
+       if "logged_in" in session:
+           return True 
+       else:
+           abort(403)
+
+
+admin.add_view(SecureModelView(User, db.session))
+admin.add_view(SecureModelView(Order, db.session))
+admin.add_view(SecureModelView(UserBasket, db.session))
+admin.add_view(SecureModelView(Products, db.session))
+
+
+@app.route('/administrator', methods=['GET', 'POST'])
+def administrator():
+    form = LoginForm()
+    if form.username.data == 'admin123' and form.password.data == 'admin123':
+        session['logged_in'] = True
+        return redirect("/admin/") 
+    return render_template("administrator.html",form=form)
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.query(User).get(user_id)
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -40,13 +67,13 @@ def index():
     form_basket = Basket()
     products = Products().query.all()
     if form_basket.validate_on_submit() and current_user.is_authenticated:
-        title = form_basket.title.data
+        product_id = form_basket.product_id.data
         count = form_basket.count.data
-        product = Products.query.filter_by(product_name=title).first() 
+        product = Products.query.filter_by(id=product_id).first() 
         total_price = int(product.price) * int(count)
         user = User().query.filter_by(username=current_user.username).first()
         new_basket = UserBasket(user_id=user.id, 
-                                product_title=product.product_name, 
+                                product_id=product_id, 
                                 quantity=count, 
                                 price=total_price)    
         db.session.add(new_basket)
@@ -79,13 +106,17 @@ def registration():
             flash('Данные введены не корректно', category='error')
     return  render_template('registration.html', form=form_registration)    
 
+@app.route('/loginn/')
+def adm():
+    session['logged_in'] = True
+    return redirect("/admin")
 
 @app.route('/login/', methods=['post', 'get'])
 def login():
     if current_user.is_authenticated:
 	    return redirect(url_for('user_profile', username=current_user.username))
     form = LoginForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit(): 
         user = db.session.query(User).filter(User.username == form.username.data).first()
         if user and user.check_password(form.password.data) and user.is_active == True:
             login_user(user, remember=form.remember.data)
@@ -118,9 +149,9 @@ def user_basket(username):
     telephone = current_user.telephone
 
     if form_delete_position.validate_on_submit():
-        title = form_delete_position.title.data
+        id_product = form_delete_position.id_product.data
         for position in contents_basket:
-            if position.product_title == title:
+            if position.product_id == id_product:
                 remove_record = position
                 db.session.delete(remove_record)
                 db.session.commit() 
@@ -148,7 +179,7 @@ def form_order(username):
         message = form_message.message.data
         for position in user_basket:
             order = Order(user_id = current_user.id,
-                          product_id = position.product_title,
+                          product_id = position.product_id,
                           quantity = position.quantity,
                           message = message,
                           total_price = position.price,
@@ -229,12 +260,11 @@ def change_password(username):
     return render_template('change_password.html', form=form, username=username)    
 
 
-@app.route('/user_profile/<username>/logout/')
-@login_required
-def logout(username):
-    logout_user()
-    flash("Вы вышли из учетной записи", category='error')
-    return redirect(url_for('login'))
+@app.route('/logout/')
+def logout():
+    session.clear()
+    return redirect('/')
+
 
     
 @app.route('/password_recovery/', methods=['POST', 'GET'])
@@ -319,6 +349,7 @@ def save_form_account(username):
 @login_required
 def orders(username):
     return render_template('orders.html', username=username) 
+
 
 @app.errorhandler(401)
 def pageNotFount(error):

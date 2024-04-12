@@ -23,13 +23,13 @@
     {% else %}
         {% for basket in contents_basket %}
             <div class="content_basket">
-                <p> Наименование: пицца {{ basket.product_title }}</p>
+                <p> Наименование: пицца {{ basket.product_basket.product_name }}</p>
                 <p> Количество: {{ basket.quantity }} шт</p>
                 <p> Цена: {{ basket.price }} руб</p>
                 <form class="delete_position" action="" method="post">
                     {{ form.csrf_token }}
                     {{ form.hidden_tag() }}
-                    {{ form.title(class="form_position_delete", value=basket.product_title) }}
+                    {{ form.id_product(class="form_position_delete", value=basket.product_id) }}
                     {{ form.submit(class="form_position_delete_submit") }}
                 </form>
             </div>
@@ -47,9 +47,6 @@
                 <a href="{{ url_for('save_form_account', username=username) }}" id="fill_data">Заполнить данные</a  > 
             {% endif %}
             <br>
-            {% for cat, msg in get_flashed_messages(True) %}
-                <div class="flash {{ cat }}">{{ msg }}</div>
-            {% endfor %}
         </div> 
     {% endif %}    
 </body>
