@@ -10,7 +10,7 @@ body {
     height: 70px;
     background-color: white;
     border-radius: 15px;
-    background-image: url("../img/index_page/header.jpg");
+    background-image: url("/static/img/index_page/header.jpg");
     background-size: 50%, cover;
 }
 
@@ -80,14 +80,14 @@ body {
 .form_position_delete {
     position: absolute;
     bottom: 10px;
-    width: 1px;
-    height: 1px;
+    width: 100px;
+    height: 18px;
     
 }
 
 .form_position_delete_submit{
     position: absolute;
-    left: 100px;
+    left: 0px;
     bottom: 10px;
     width: 200px;
     height: 25px;
@@ -186,7 +186,52 @@ body {
       
 }
 
+#basket_empty {
+    position: relative;
+    top: 120px;
+    left: 100px;
+    width: 300px;
+    height: 200px;
+    text-align:center;
+    font-size: 25px;
+    line-height: 0.8;
+    padding-top: 40px;
+    padding-bottom: 1px;
+    color: rgb(1, 9, 16);
+    border-radius: 10px;
+    background-color: rgb(232, 222, 133);
+}
+
+#shopping {
+    position: absolute;
+    top: 150px;
+    left: 50px;
+    width: 130px;
+    height: 20px;
+    color: black;
+    background-color: rgb(145, 219, 145);
+    font-size: 20px;
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+
+.icon {
+    position: absolute;
+    top: 0px;
+    right: 100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background-image: url("../img/icons/basket.png");
+    background-size: 100%, cover;
+}
+
 
 
 #button_update:hover { background: rgb(96, 94, 212); } 
 #login:hover, #basket:hover, #button_order:hover, .form_position_delete_submit:hover, #fill_data:hover { background: rgb(86, 192, 123); }
+#shopping:hover, #fill_data:hover { background: rgb(86, 192, 123); }

@@ -23,7 +23,7 @@
             <form class="delete_position" action="" method="post">
                 {{ form.csrf_token }}
                 {{ form.hidden_tag() }}
-                {{ form.title(class="form_position_delete", value=basket.product_title) }}
+                {{ form.title(class="form_position_delete", value="basket.product_title") }}
                 {{ form.submit(class="form_position_delete_submit") }}
             </form>
         </div>

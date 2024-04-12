@@ -16,6 +16,11 @@ class LoginForm(FlaskForm):
     remember = BooleanField("Запомнить меня")
     submit = SubmitField("Войти")
 
+
+# class AdminForm(LoginForm):
+#     pass
+
+
 class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[Email()])
     username = StringField('Логин', validators=[DataRequired()])
@@ -70,11 +75,12 @@ TYPE_PAYMENT = [('наличными', 'наличными'),
                   ]
 
 class MessageOrder(FlaskForm):
-    type_payment = SelectField('тип оплаты', choices=TYPE_PAYMENT, default='переводом')
+    type_payment = SelectField('способ оплаты', choices=TYPE_PAYMENT, default='переводом')
     message = StringField()
     submit = SubmitField('Заказать')
     
 
 class AccountRecoveryForm(PasswordRecoveryForm):   
     pass
+
 

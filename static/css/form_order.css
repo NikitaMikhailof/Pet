@@ -30,6 +30,7 @@ body {
 .wrapper{
     position: relative;
 }
+
 #separator {
     position: relative;
     left:50px;
@@ -68,7 +69,7 @@ body {
 .form_payment {
     position: relative;
     top: -10px;
-    left: 30px;
+    left: 20px;
     width: 120px;
     height: 20px;
     font-size: 15px;
@@ -100,6 +101,7 @@ body {
     width: 150px;
     height: 40px;
     background-color: rgb(113, 202, 71);
+    border: 2px solid rgb(142, 215, 142); /* фон кнопки */
     border-radius: 10px;
     font-size: 15px;
  }
@@ -153,24 +155,5 @@ body {
     height: 20px;
 }
 
- .flash {
-    position: relative;
-    top: 20px;
-    left: 0px;
-    width: 300px;
-    height: 60px;
-    border-radius: 8px;
-    border: green;
-    text-align: center;
-}
 
-.flash.success {
-	border: 1px solid #21DB56;
-	background: #AEFFC5;
-}
-.flash.error {
-	border: 1px solid #FF4343;
-	background: #FF9C9C;
-}
-
- .form_submit:hover { background: rgb(86, 192, 123); }
+ .form_submit:hover, #login:hover, #basket:hover { background: rgb(86, 192, 123); }

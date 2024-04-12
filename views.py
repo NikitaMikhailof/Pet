@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, make_response
-from models import db, User, Products, Order, UserBasket
+from models import db, User, Products, Order, UserBasket, OrderView
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,6 +8,8 @@ from forms import AccountRecoveryForm, UserProfile, Basket, BasketPositionDelete
 from passw_recovery import send_email
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 import os
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 
 
@@ -20,7 +22,13 @@ login_manager.login_view = 'login'
 UPLOAD_FOLDER = 'static/img/avatar/'
 MAX_CONTENT_LENGTH = 1024 * 1024 * 2
 
+admin = Admin()
+admin.init_app(app)
 
+
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Products, db.session))
+admin.add_view(OrderView(Order, db.session))
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -85,7 +93,7 @@ def login():
         flash("Неверный логин / пароль", category='error')
         return redirect(url_for('login'))
     return render_template('login.html', form=form)
-            
+
 
 @app.route('/user_profile/<username>/', methods=['GET', 'POST'])
 @login_required
@@ -94,7 +102,7 @@ def user_profile(username):
     return render_template('user_profile.html', form=form, user=current_user)
 
 
-@app.route('/user_profile//<username>/basket/', methods=['GET', 'POST'])
+@app.route('/user_profile/<username>/basket/', methods=['GET', 'POST'])
 @login_required
 def user_basket(username): 
     total = 0
@@ -122,6 +130,7 @@ def user_basket(username):
                             count_position=count_position,
                             username=current_user.username, 
                             form=form_delete_position)
+
 
 @app.route('/user_profile/<username>/form_order/', methods=['GET', 'POST'])
 @login_required
@@ -329,7 +338,7 @@ def pageNotFount(error):
 # @app.cli.command("init-db")
 # def init_db():
 #     db.create_all()
-#     print('OK')cls
+#     print('OK')
 
 
 # user = User_profile.query.filter_by(username='bad1991').first()
@@ -347,7 +356,7 @@ def pageNotFount(error):
 #     db.session.commit()
 #     print(f'{user.id} add in DB!')
 
-# @app.cli.command("add")
+# @app.cli.command("d")
 # def add():
 #     for i in range(1, 55):
 #         new_basket = UserBasket.query.get(i)

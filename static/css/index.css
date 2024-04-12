@@ -10,7 +10,7 @@ body {
     height: 70px;
     background-color: white;
     border-radius: 15px;
-    background-image: url("../img/index_page/header.jpg");
+    background-image: url("/static/img/index_page/header.jpg");
     background-size: 50%, cover;
 }
 
@@ -478,24 +478,47 @@ body {
 .social-icons {
     display: flex;
     justify-content: center;
-  }
+}
    
-  .social-icons a {
+.social-icons a {
     margin: 0 10px;
-  }
+}
    
-  .social-icons img {
+.social-icons img {
     width: 50px;
     height: 50px;
     transition: transform 0.3s;
-  }
+}
    
-  .social-icons a:hover img {
+.social-icons a:hover img {
     transform: scale(1.2);
-  }
+}
 
+#clock {
+    position: absolute;
+    color: white;
+    top: 20px;
+    right: 330px;
+    font-size: 25px;
+    font-weight:600;
+}
 
+#admin{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    width: 100px;
+    height: 15px;
+    text-align: center;
+    font-size: 15px;
+    color: rgb(246, 241, 241);
+    background-color: rgb(82, 103, 203);
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none;  /*убирать контур в Mozilla */
+}
 
-
-
-#login:hover, #basket:hover, .Whatsapp:hover, .vk:hover, .form_submit:hover, #button_order:hover { background: rgb(86, 192, 123); } /* при наведении курсора мышки
+#admin:hover {background: rgb(149, 158, 238);}
+#login:hover, #basket:hover, .Whatsapp:hover, .vk:hover {background: rgb(86, 192, 123); } /* при наведении курсора мышки

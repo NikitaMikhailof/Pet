@@ -20,9 +20,7 @@
             {% for cat, msg in get_flashed_messages(True) %}
             <div class="flash {{ cat }}">{{ msg }}</div>
             {% endfor %}
-            {% if user %}
-                <a id="back" href="{{ url_for('login') }}">Назад</a>
-            {% endif %}
+            <a id="back" href="{{ url_for('login') }}">Назад</a>
         </div>
     </div>
 </body>

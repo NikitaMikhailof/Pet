@@ -48,10 +48,10 @@ body {
     border: 2px solid rgb(142, 215, 142); /* фон кнопки */
     border-radius: 10px;
     padding: .7em 1.5em; /* отступ от текста */
-    outline: none;  /*убирать контур в Mozilla */
+    outline: none; /* убирать контур в Mozilla */
 }
 
-#name_restoran {
+#name_orders {
     position: absolute;
     top:-45px;
     text-align: center;
@@ -77,3 +77,15 @@ body {
     background-color: rgb(232, 222, 133);
 }
 
+.icon {
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+    background-image: url("../img/icons/done.png");
+    background-size: 100%, cover;
+}
+
+#login:hover, #basket:hover { background: rgb(39, 200, 95); } 

@@ -29,8 +29,8 @@
             {{ form.csrf_token }}
             {{ form.hidden_tag() }}
             {{ form.type_payment.label(class="form_payment_label") }}
-            {{ form.type_payment(class="form_payment", placeholder="вид оплаты")}}
-            {{ form.message(class="form_message", placeholder="    Хочу дополнительно к заказу") }}
+            {{ form.type_payment(class="form_payment")}}
+            {{ form.message(class="form_message", placeholder="Указать дополнительно к заказу") }}
             {{ form.submit(class="form_submit") }}
         </form>
     </div>
