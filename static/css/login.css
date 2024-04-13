@@ -1,5 +1,6 @@
 body {
-    background-image: url("https://mobimg.b-cdn.net/v3/fetch/d0/d0e45034fed282d858254cf36879fa14.jpeg?w=1470&r=0.5625");
+    background-image: url("/static/img/admin/admin.jpg");
+    background-size: 100%, cover;
 }
 
 .login {

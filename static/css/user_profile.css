@@ -104,10 +104,10 @@ body {
         height: 10px;
         text-align: center;
         color: white;
-        background-color: rgb(74, 154, 74);
+        background-color: rgb(181, 25, 25);
         text-decoration: none; /* убирать подчёркивание у ссылок */
         user-select: none; /* убирать выделение текста */
-        border: 2px solid green; /* фон кнопки */
+        border: 2px solid rgb(181, 25, 25); /* фон кнопки */
         border-radius: 10px;
         padding: .7em 1.5em; /* отступ от текста */
         outline: none; /* убирать контур в Mozilla */
@@ -435,5 +435,6 @@ body {
 	background: #FF9C9C;
 }
 
-#orders:hover, #basket:hover, #main_page:hover, #change:hover, #password_change:hover, #delete_profile:hover, #exit_profile:hover, .form_submit:hover{ background: rgb(126, 218, 158); } /* при наведении курсора мышки
+#delete_profile:hover {background: rgb(248, 100, 100);}
+#orders:hover, #basket:hover, #main_page:hover, #change:hover, #password_change:hover, #exit_profile:hover, .form_submit:hover, #change_profile:hover { background: rgb(126, 218, 158); } /* при наведении курсора мышки
 

@@ -15,17 +15,24 @@
 </header>
 <body>
     <br><br>
-    {% for order in orders %}
-        <div class="content_orders">
-            <p class="icon"></p>
-            <p> Время: {{ order.time_buy }}</p>
-            <p> Пицца {{ order.product.product_name }}</p>
-            <p> Количество: {{ order.quantity }} шт</p>
-            <p> Цена: {{ order.total_price }} руб</p> 
-            <p> Способ оплаты: {{ order.type_payment }}</p> 
-            <p> Сообщение: {{ order.message }} </p>
+    {% if empty|length > 0 %}
+        {% for order in orders %}
+            <div class="content_orders">
+                <p class="icon"></p>
+                <p> Время: {{ order.time_buy }}</p>
+                <p> Пицца {{ order.product.product_name }}</p>
+                <p> Количество: {{ order.quantity }} шт</p>
+                <p> Цена: {{ order.total_price }} руб</p> 
+                <p> Способ оплаты: {{ order.type_payment }}</p> 
+                <p> Сообщение: {{ order.message }} </p>
+            </div>
+            <br><br>
+        {% endfor %} 
+    {% else %}    
+        <div id="basket_empty">
+            <div id="icon"></div>
+            <p id="shopping">Нет заказов</p>
         </div>
-        <br><br>
-    {% endfor %}
+    {% endif %}
 </body>
 </html>

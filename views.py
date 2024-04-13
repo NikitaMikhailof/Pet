@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, abort, make_response
-from models import db, User, Products, Order, UserBasket, OrderView, UserView, UserBasketView, ProductsView
+from models import db, User, Products, Order, UserBasket
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -7,11 +7,9 @@ from forms import LoginForm, RegistrationForm, PasswordRecoveryForm, СhangePass
 from forms import AccountRecoveryForm, UserProfile, Basket, BasketPositionDelete, MessageOrder
 from passw_recovery import send_email
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
-import os
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
-
-
+from config import OrderView, UserView, UserBasketView, ProductsView
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '4470a67a983583b8d6287e88b4f25ca5bf212514b0add95fde48a5e6abbd6dd0'
@@ -24,26 +22,11 @@ MAX_CONTENT_LENGTH = 1024 * 1024 * 2
 
 
 admin = Admin(app)
-# admin.init_app(app)
 
-
-# admin.add_view(UserView(User, db.session))
-# admin.add_view(OrderView(Order, db.session))
-# admin.add_view(UserBasketView(UserBasket, db.session))
-# admin.add_view(ProductsView(Products, db.session))
-
-class SecureModelView(ModelView):    
-   def is_accessible(self):
-       if "logged_in" in session:
-           return True 
-       else:
-           abort(403)
-
-
-admin.add_view(SecureModelView(User, db.session))
-admin.add_view(SecureModelView(Order, db.session))
-admin.add_view(SecureModelView(UserBasket, db.session))
-admin.add_view(SecureModelView(Products, db.session))
+admin.add_view(UserView(User, db.session))
+admin.add_view(OrderView(Order, db.session))
+admin.add_view(UserBasketView(UserBasket, db.session))
+admin.add_view(ProductsView(Products, db.session))
 
 
 @app.route('/administrator', methods=['GET', 'POST'])
@@ -106,10 +89,6 @@ def registration():
             flash('Данные введены не корректно', category='error')
     return  render_template('registration.html', form=form_registration)    
 
-@app.route('/loginn/')
-def adm():
-    session['logged_in'] = True
-    return redirect("/admin")
 
 @app.route('/login/', methods=['post', 'get'])
 def login():
@@ -201,8 +180,10 @@ def form_order(username):
 @app.route('/user_profile/<username>/orders/', methods=['GET', 'POST'])
 @login_required
 def user_orders(username): 
-    user_orders = Order.query.filter_by(user_id=current_user.id).order_by(desc(Order.time_buy)) 
-    return render_template('user_orders.html', username=username, orders=user_orders)
+    user_orders = Order().query.filter_by(user_id=current_user.id).order_by(desc(Order.time_buy))
+    empty = [order.id for order in user_orders]
+    return render_template('user_orders.html', username=username, 
+                           orders=user_orders, empty=empty)
 
 
 @app.route('/userava/')

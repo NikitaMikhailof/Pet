@@ -127,6 +127,13 @@ class Order(db.Model):
 
 
 class UserView(ModelView):  
+
+    def is_accessible(self):
+       if "logged_in" in session:
+           return True 
+       else:
+           abort(403)
+           
     can_delete = True
     column_list = [ "username", "email", "name", 
                     "telephone", "name", "age",

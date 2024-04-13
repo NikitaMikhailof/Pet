@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" href="{{ url_for('static', filename='css/login.css')}}" rel="stylesheet" />
-    <title>Вход в админастративную панель </title>
+    <link type="text/css" href="{{ url_for('static', filename='css/administrator.css')}}" rel="stylesheet" />
+    <title>Вход в административную панель </title>
 </head>
 <body>
     <div class="login">
@@ -37,8 +37,7 @@
             </p>
                 {{ form.submit() }}
             </form>
-            <a id="password_recovery" href="{{ url_for('password_recovery') }}">Забыли пароль?</a>
-            <a id="registration" href="{{ url_for('registration') }}">Регистрация</a>
+            <a id="back" href="{{ url_for('index') }}">На главную</a>
             {% for cat, msg in get_flashed_messages(True) %}
                 <div class="flash {{ cat }}">{{ msg }}</div>
             {% endfor %}

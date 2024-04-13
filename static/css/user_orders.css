@@ -108,12 +108,29 @@ body {
 #icon {
     position: absolute;
     top: 30px;
-    right: 100px;
-    width: 100px;
-    height: 100px;
+    right: 90px;
+    width: 130px;
+    height: 130px;
     border-radius: 20px;
-    background-image: url("../img/icons/basket.png");
-    background-size: 100%, cover;
+    background-image: url("../img/icons/box_empty.png");
+    background-size: 105%, cover;
 }
 
-#login:hover, #basket:hover { background: rgb(39, 200, 95); } 
+#shopping {
+    position: absolute;
+    top: 150px;
+    left: 30px;
+    width: 180px;
+    height: 20px;
+    color: rgb(247, 242, 242);
+    background-color: rgb(227, 56, 56);
+    font-size: 20px;
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    border: 2px solid rgb(227, 56, 56); /* фон кнопки */
+    border-radius: 10px;
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+
+#login:hover, #basket:hover{ background: rgb(39, 200, 95); } 
