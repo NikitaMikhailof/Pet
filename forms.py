@@ -17,9 +17,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Войти")
 
 
-# class AdminForm(LoginForm):
-#     pass
-
 
 class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[Email()])
